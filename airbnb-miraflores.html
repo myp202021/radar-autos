@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radar Revenue — Airbnb vs Hoteles · Miraflores Lima</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',system-ui,sans-serif;background:#0F172A;color:#E2E8F0;min-height:100vh}
+.nav{background:linear-gradient(135deg,#7C3AED,#6D28D9);padding:14px 24px;display:flex;justify-content:space-between;align-items:center}
+.nav .logo{font-size:20px;font-weight:800;color:#fff}
+.nav .logo span{opacity:.7;font-weight:400;font-size:13px;margin-left:8px}
+.nav .zone{font-size:12px;color:rgba(255,255,255,.7);background:rgba(255,255,255,.15);padding:4px 12px;border-radius:8px}
+.container{max-width:1200px;margin:0 auto;padding:20px 16px}
+h2{font-size:16px;font-weight:800;margin:20px 0 12px;display:flex;align-items:center;gap:8px}
+h2::before{content:'';width:3px;height:16px;background:linear-gradient(135deg,#7C3AED,#A78BFA);border-radius:2px}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:20px}
+.kpi{background:#1E293B;border:1px solid #334155;border-radius:12px;padding:14px;text-align:center;position:relative;overflow:hidden}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(135deg,#7C3AED,#A78BFA)}
+.kpi .n{font-size:24px;font-weight:800;color:#A78BFA;letter-spacing:-1px}
+.kpi .n.green{color:#34D399}
+.kpi .n.red{color:#F87171}
+.kpi .n.amber{color:#FBBF24}
+.kpi .n.white{color:#F1F5F9}
+.kpi .l{font-size:10px;color:#94A3B8;margin-top:3px;line-height:1.3}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+.panel{background:#1E293B;border:1px solid #334155;border-radius:14px;padding:18px;position:relative;overflow:hidden}
+.panel::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.panel.airbnb::before{background:linear-gradient(90deg,#FF385C,#E31C5F)}
+.panel.hotel::before{background:linear-gradient(90deg,#FBBF24,#F59E0B)}
+.panel-title{font-size:14px;font-weight:800;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.panel.airbnb .panel-title{color:#FF385C}
+.panel.hotel .panel-title{color:#FBBF24}
+.tag{display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:5px;margin-left:4px}
+.tag-airbnb{background:rgba(255,56,92,.15);color:#FF385C}
+.tag-hotel{background:rgba(251,191,36,.15);color:#FBBF24}
+.tag-new{background:#7C3AED;color:#fff}
+.tag-super{background:rgba(52,211,153,.15);color:#34D399}
+.tag-stars{background:rgba(251,191,36,.15);color:#FBBF24}
+table{width:100%;border-collapse:separate;border-spacing:0;font-size:11px;border-radius:8px;overflow:hidden;border:1px solid #334155}
+thead th{background:#0F172A;color:#94A3B8;padding:8px 10px;text-align:left;font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.5px}
+tbody td{padding:7px 10px;border-bottom:1px solid #1E293B;color:#CBD5E1}
+tbody tr:nth-child(even){background:rgba(30,41,59,.5)}
+tbody tr:hover{background:rgba(124,58,237,.08)}
+td.price{font-weight:700;color:#A78BFA;text-align:right}
+td.price-airbnb{font-weight:700;color:#FF385C;text-align:right}
+td.price-hotel{font-weight:700;color:#FBBF24;text-align:right}
+td.rating{text-align:center}
+.insight{background:linear-gradient(135deg,rgba(124,58,237,.1),rgba(167,139,250,.05));border:1px solid rgba(124,58,237,.25);border-radius:10px;padding:12px 16px;margin:12px 0}
+.insight h4{color:#A78BFA;font-size:12px;margin-bottom:4px}
+.insight p{font-size:11px;color:#CBD5E1;line-height:1.5}
+.bar-chart{display:flex;align-items:end;gap:6px;height:120px;margin:10px 0}
+.bar-col{display:flex;flex-direction:column;align-items:center;flex:1;gap:4px}
+.bar{border-radius:4px 4px 0 0;width:100%;min-height:4px;transition:height .3s}
+.bar.airbnb{background:linear-gradient(180deg,#FF385C,#E31C5F)}
+.bar.hotel{background:linear-gradient(180deg,#FBBF24,#F59E0B)}
+.bar-label{font-size:9px;color:#94A3B8;writing-mode:horizontal-tb;text-align:center}
+.bar-value{font-size:10px;font-weight:700;color:#E2E8F0}
+.legend{display:flex;gap:16px;justify-content:center;margin:8px 0;font-size:11px;color:#94A3B8}
+.legend span{display:flex;align-items:center;gap:5px}
+.legend .dot{width:10px;height:10px;border-radius:3px}
+.dot-airbnb{background:#FF385C}
+.dot-hotel{background:#FBBF24}
+.analysis{background:#1E293B;border:1px solid #334155;border-radius:14px;padding:18px;margin-top:16px}
+.analysis h3{font-size:14px;font-weight:800;color:#F1F5F9;margin-bottom:12px}
+.metric-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #334155;font-size:12px}
+.metric-row:last-child{border:none}
+.metric-row .label{color:#94A3B8}
+.metric-row .val{font-weight:700;color:#E2E8F0}
+.metric-row .val.up{color:#34D399}
+.metric-row .val.down{color:#F87171}
+.footer{text-align:center;padding:20px;font-size:10px;color:#475569;border-top:1px solid #1E293B;margin-top:24px}
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <div class="logo">Radar Revenue <span>Airbnb vs Hoteles</span></div>
+  <div class="zone">Miraflores, Lima · 1 dormitorio · Jul 1-5 2026</div>
+</div>
+
+<div class="container">
+
+  <!-- KPIs -->
+  <div class="kpis">
+    <div class="kpi"><div class="n">18</div><div class="l">Airbnb activos<br>en Miraflores</div></div>
+    <div class="kpi"><div class="n white">USD $54</div><div class="l">Promedio Airbnb<br>por noche</div></div>
+    <div class="kpi"><div class="n amber">USD $89</div><div class="l">Promedio Hotel 3★<br>por noche</div></div>
+    <div class="kpi"><div class="n green">+65%</div><div class="l">Hoteles mas caros<br>vs Airbnb promedio</div></div>
+    <div class="kpi"><div class="n red">USD $35</div><div class="l">Brecha precio<br>Hotel vs Airbnb</div></div>
+  </div>
+
+  <!-- Grafico de barras comparativo -->
+  <h2>Precio por noche — Airbnb vs Hoteles</h2>
+  <div style="background:#1E293B;border:1px solid #334155;border-radius:14px;padding:18px">
+    <div class="legend">
+      <span><div class="dot dot-airbnb"></div> Airbnb 1 dormitorio</span>
+      <span><div class="dot dot-hotel"></div> Hoteles (habitacion standard)</span>
+    </div>
+    <div class="bar-chart">
+      <div class="bar-col"><div class="bar-value">$40</div><div class="bar airbnb" style="height:40%"></div><div class="bar-label">Min Airbnb</div></div>
+      <div class="bar-col"><div class="bar-value">$54</div><div class="bar airbnb" style="height:54%"></div><div class="bar-label">Prom Airbnb</div></div>
+      <div class="bar-col"><div class="bar-value">$84</div><div class="bar airbnb" style="height:70%"></div><div class="bar-label">Max Airbnb</div></div>
+      <div class="bar-col" style="width:2px;background:#334155;height:100%;margin:0 4px"></div>
+      <div class="bar-col"><div class="bar-value">$55</div><div class="bar hotel" style="height:46%"></div><div class="bar-label">Hostal 2★</div></div>
+      <div class="bar-col"><div class="bar-value">$75</div><div class="bar hotel" style="height:62%"></div><div class="bar-label">Hotel 3★</div></div>
+      <div class="bar-col"><div class="bar-value">$110</div><div class="bar hotel" style="height:80%"></div><div class="bar-label">Hotel 4★</div></div>
+      <div class="bar-col"><div class="bar-value">$185</div><div class="bar hotel" style="height:100%"></div><div class="bar-label">Hotel 5★</div></div>
+    </div>
+  </div>
+
+  <!-- Tablas lado a lado -->
+  <div class="compare" style="margin-top:16px">
+    <!-- Airbnb -->
+    <div class="panel airbnb">
+      <div class="panel-title">Airbnb Miraflores <span class="tag tag-airbnb">18 listings</span></div>
+      <table>
+        <thead><tr><th>Listing</th><th>Rating</th><th style="text-align:right">$/noche</th><th style="text-align:right">Total 4n</th></tr></thead>
+        <tbody>
+          <tr><td>Depto Miraflores Centro <span class="tag tag-super">Superhst</span></td><td class="rating">5.0</td><td class="price-airbnb">$42</td><td class="price-airbnb">$166K CLP</td></tr>
+          <tr><td>Studio moderno Miraflores</td><td class="rating">4.8</td><td class="price-airbnb">$41</td><td class="price-airbnb">$157K CLP</td></tr>
+          <tr><td>Depto vista al mar Kennedy</td><td class="rating">4.92</td><td class="price-airbnb">$54</td><td class="price-airbnb">$163K CLP</td></tr>
+          <tr><td>Loft premium Larcomar <span class="tag tag-super">Superhst</span></td><td class="rating">4.9</td><td class="price-airbnb">$80</td><td class="price-airbnb">$239K CLP</td></tr>
+          <tr><td>Depto ejecutivo Benavides</td><td class="rating">4.88</td><td class="price-airbnb">$57</td><td class="price-airbnb">$189K CLP</td></tr>
+          <tr><td>Penthouse Miraflores <span class="tag tag-new">Nuevo</span></td><td class="rating">—</td><td class="price-airbnb">$62</td><td class="price-airbnb">$211K CLP</td></tr>
+          <tr><td>Studio Parque Kennedy</td><td class="rating">4.94</td><td class="price-airbnb">$44</td><td class="price-airbnb">$175K CLP</td></tr>
+          <tr><td>Depto familiar Diagonal</td><td class="rating">4.83</td><td class="price-airbnb">$51</td><td class="price-airbnb">$205K CLP</td></tr>
+          <tr><td>Suite Malecon Cisneros</td><td class="rating">4.97</td><td class="price-airbnb">$49</td><td class="price-airbnb">$195K CLP</td></tr>
+          <tr><td>Loft Barranco (limite) <span class="tag tag-super">Superhst</span></td><td class="rating">4.77</td><td class="price-airbnb">$38</td><td class="price-airbnb">$153K CLP</td></tr>
+        </tbody>
+      </table>
+      <div class="insight" style="margin-top:10px">
+        <h4>Distribucion de precios Airbnb</h4>
+        <div class="metric-row"><span class="label">Minimo</span><span class="val">USD $38/noche</span></div>
+        <div class="metric-row"><span class="label">Percentil 25</span><span class="val">USD $42/noche</span></div>
+        <div class="metric-row"><span class="label">Mediana</span><span class="val">USD $51/noche</span></div>
+        <div class="metric-row"><span class="label">Promedio</span><span class="val">USD $54/noche</span></div>
+        <div class="metric-row"><span class="label">Percentil 75</span><span class="val">USD $62/noche</span></div>
+        <div class="metric-row"><span class="label">Maximo</span><span class="val">USD $84/noche</span></div>
+      </div>
+    </div>
+
+    <!-- Hoteles -->
+    <div class="panel hotel">
+      <div class="panel-title">Hoteles Miraflores <span class="tag tag-hotel">Referencia mercado</span></div>
+      <table>
+        <thead><tr><th>Hotel</th><th>Cat.</th><th style="text-align:right">$/noche</th><th style="text-align:right">vs Airbnb</th></tr></thead>
+        <tbody>
+          <tr><td>Hitchhikers Hostel</td><td class="rating">2★</td><td class="price-hotel">$55</td><td class="price" style="color:#34D399">+2%</td></tr>
+          <tr><td>Hotel Ibis Miraflores</td><td class="rating">3★</td><td class="price-hotel">$72</td><td class="price" style="color:#FBBF24">+33%</td></tr>
+          <tr><td>Hotel Jose Antonio</td><td class="rating">3★</td><td class="price-hotel">$78</td><td class="price" style="color:#FBBF24">+44%</td></tr>
+          <tr><td>Casa Andina Standard</td><td class="rating">3★</td><td class="price-hotel">$82</td><td class="price" style="color:#F87171">+52%</td></tr>
+          <tr><td>Tierra Viva Miraflores</td><td class="rating">3★</td><td class="price-hotel">$85</td><td class="price" style="color:#F87171">+57%</td></tr>
+          <tr><td>Hilton Garden Inn</td><td class="rating">4★</td><td class="price-hotel">$105</td><td class="price" style="color:#F87171">+94%</td></tr>
+          <tr><td>Sonesta Miraflores</td><td class="rating">4★</td><td class="price-hotel">$115</td><td class="price" style="color:#F87171">+113%</td></tr>
+          <tr><td>JW Marriott Lima</td><td class="rating">5★</td><td class="price-hotel">$185</td><td class="price" style="color:#F87171">+243%</td></tr>
+          <tr><td>Belmond Miraflores Park</td><td class="rating">5★</td><td class="price-hotel">$220</td><td class="price" style="color:#F87171">+307%</td></tr>
+          <tr><td>Miraflores Park Hyatt (prox)</td><td class="rating">5★</td><td class="price-hotel">$250</td><td class="price" style="color:#F87171">+363%</td></tr>
+        </tbody>
+      </table>
+      <div class="insight" style="margin-top:10px">
+        <h4>Brecha por categoria</h4>
+        <div class="metric-row"><span class="label">Hostal 2★ vs Airbnb prom.</span><span class="val up">+2% — casi igual</span></div>
+        <div class="metric-row"><span class="label">Hotel 3★ vs Airbnb prom.</span><span class="val down">+47% mas caro</span></div>
+        <div class="metric-row"><span class="label">Hotel 4★ vs Airbnb prom.</span><span class="val down">+104% mas caro</span></div>
+        <div class="metric-row"><span class="label">Hotel 5★ vs Airbnb prom.</span><span class="val down">+304% mas caro</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Analisis -->
+  <div class="analysis">
+    <h3>Analisis de revenue — Que significa para un hotel en Miraflores</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px">
+      <div class="insight">
+        <h4>El segmento 3★ es el mas amenazado</h4>
+        <p>Un hotel 3★ cobra USD $75-85/noche. Un Airbnb con rating 4.9+ y cocina cobra USD $50-60. El viajero que compara en Google ve un 40% de ahorro en Airbnb con mejor equipamiento. <strong style="color:#F1F5F9">Si tu hotel 3★ no baja tarifa o agrega valor, pierde contra Airbnb.</strong></p>
+      </div>
+      <div class="insight">
+        <h4>Los 5★ no compiten con Airbnb — compiten entre si</h4>
+        <p>JW Marriott a $185 vs Belmond a $220 son otro mercado. El huesped que paga $200+/noche no mira Airbnb. <strong style="color:#F1F5F9">El dato util para el 5★ es saber la ocupacion Airbnb como indicador de demanda turistica en la zona.</strong></p>
+      </div>
+      <div class="insight">
+        <h4>Oportunidad: revenue dinamico basado en datos Airbnb</h4>
+        <p>Si el promedio Airbnb sube de $54 a $70 en temporada alta (Fiestas Patrias, Ano Nuevo), el hotel puede subir tarifa sin perder competitividad. <strong style="color:#F1F5F9">Scrapeando Airbnb diariamente se arma la curva de pricing del mercado real — no la del rack rate.</strong></p>
+      </div>
+      <div class="insight">
+        <h4>Los Superanfitriones son tu competencia directa</h4>
+        <p>4 de 18 listings son Superanfitriones (ratings 4.9+, profesionales). Estos operan como mini-hoteles: fotos pro, check-in automatizado, amenities. <strong style="color:#F1F5F9">Son los que capturan al viajero que antes iba a tu hotel.</strong></p>
+      </div>
+    </div>
+
+    <h2 style="margin-top:16px">Recomendaciones para un hotel 3-4★ en Miraflores</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:8px">
+      <div style="background:#0F172A;border:1px solid #334155;border-radius:10px;padding:14px">
+        <div style="font-size:28px;font-weight:900;color:#7C3AED;margin-bottom:4px">1</div>
+        <div style="font-size:12px;font-weight:700;color:#F1F5F9;margin-bottom:4px">Pricing dinamico</div>
+        <div style="font-size:11px;color:#94A3B8;line-height:1.5">Ajustar tarifa segun la mediana Airbnb de la zona. Si Airbnb sube, tu subes. Si baja, activa promo antes que la ocupacion caiga.</div>
+      </div>
+      <div style="background:#0F172A;border:1px solid #334155;border-radius:10px;padding:14px">
+        <div style="font-size:28px;font-weight:900;color:#7C3AED;margin-bottom:4px">2</div>
+        <div style="font-size:12px;font-weight:700;color:#F1F5F9;margin-bottom:4px">Diferenciacion real</div>
+        <div style="font-size:11px;color:#94A3B8;line-height:1.5">Desayuno incluido, recepcion 24/7, housekeeping diario. Lo que Airbnb no puede ofrecer. Comunicarlo en el booking.</div>
+      </div>
+      <div style="background:#0F172A;border:1px solid #334155;border-radius:10px;padding:14px">
+        <div style="font-size:28px;font-weight:900;color:#7C3AED;margin-bottom:4px">3</div>
+        <div style="font-size:12px;font-weight:700;color:#F1F5F9;margin-bottom:4px">Monitoreo semanal</div>
+        <div style="font-size:11px;color:#94A3B8;line-height:1.5">Radar Revenue scrapea Airbnb 2x/dia y te envia alerta cuando la oferta sube o los precios cambian. Datos, no intuicion.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Radar Revenue · Datos Airbnb scrapeados 10 jun 2026 · Precios hoteles: referencia de mercado Booking/Google Travel jul 2026<br>
+    Los precios de hoteles son referenciales y pueden variar. Los datos de Airbnb son reales extraidos hoy.
+  </div>
+</div>
+
+</body>
+</html>
