@@ -202,116 +202,167 @@ td.ctr{text-align:center}
     </div>
   </div>
 
-  <!-- ======= ARRIENDOS (Airbnb vs Hoteles) ======= -->
+  <!-- ======= ARRIENDOS (Airbnb Revenue) ======= -->
   <div class="section" id="section-arriendos">
-    <div class="dark-section">
+    <div class="info-bar" style="background:#EDE9FE;border-color:#C4B5FD;color:#5B21B6"><strong style="color:#6D28D9">Miraflores, Lima</strong> · 1 dormitorio · Julio 2026 · 18 listings Airbnb scrapeados 10 jun 2026</div>
 
-      <div style="text-align:center;margin-bottom:16px;font-size:12px;color:#94A3B8;background:#1E293B;border:1px solid #334155;border-radius:10px;padding:10px">
-        <strong style="color:#A78BFA">Miraflores, Lima</strong> · 1 dormitorio · Julio 2026 · Datos reales Airbnb scrapeados 10 jun 2026
-      </div>
+    <!-- KPIs principales -->
+    <div class="kpis" style="grid-template-columns:repeat(6,1fr)">
+      <div class="kpi"><div class="n" style="color:#7C3AED">18</div><div class="l">Listings activos</div></div>
+      <div class="kpi"><div class="n">$54</div><div class="l">Promedio USD/noche</div></div>
+      <div class="kpi"><div class="n" style="color:#059669">$38</div><div class="l">Minimo USD/noche</div></div>
+      <div class="kpi"><div class="n" style="color:#DC2626">$84</div><div class="l">Maximo USD/noche</div></div>
+      <div class="kpi"><div class="n" style="color:#D97706">4.89</div><div class="l">Rating promedio</div></div>
+      <div class="kpi"><div class="n" style="color:#7C3AED">22%</div><div class="l">Superanfitriones</div></div>
+    </div>
 
-      <div class="arr-kpis">
-        <div class="arr-kpi"><div class="n purple">18</div><div class="l">Airbnb activos<br>en Miraflores</div></div>
-        <div class="arr-kpi"><div class="n white">USD $54</div><div class="l">Promedio Airbnb<br>por noche</div></div>
-        <div class="arr-kpi"><div class="n amber">USD $89</div><div class="l">Promedio Hotel 3★<br>referencia</div></div>
-        <div class="arr-kpi"><div class="n green">+65%</div><div class="l">Hoteles mas caros<br>vs Airbnb prom.</div></div>
-        <div class="arr-kpi"><div class="n red">USD $35</div><div class="l">Brecha precio<br>Hotel vs Airbnb</div></div>
-      </div>
-
-      <h2>Precio por noche — Airbnb vs Hoteles</h2>
-      <div style="background:#1E293B;border:1px solid #334155;border-radius:14px;padding:18px">
-        <div class="legend"><span><div class="dot dot-ab"></div> Airbnb 1 dorm</span><span><div class="dot dot-ht"></div> Hoteles (ref. mercado)</span></div>
-        <div class="bar-chart">
-          <div class="bar-col"><div class="bar-val">$40</div><div class="bar ab" style="height:40%"></div><div class="bar-lbl">Min<br>Airbnb</div></div>
-          <div class="bar-col"><div class="bar-val">$54</div><div class="bar ab" style="height:54%"></div><div class="bar-lbl">Prom<br>Airbnb</div></div>
-          <div class="bar-col"><div class="bar-val">$84</div><div class="bar ab" style="height:70%"></div><div class="bar-lbl">Max<br>Airbnb</div></div>
-          <div class="bar-col" style="width:2px;background:#334155;height:100%"></div>
-          <div class="bar-col"><div class="bar-val">$55</div><div class="bar ht" style="height:46%"></div><div class="bar-lbl">Hostal<br>2★</div></div>
-          <div class="bar-col"><div class="bar-val">$75</div><div class="bar ht" style="height:62%"></div><div class="bar-lbl">Hotel<br>3★</div></div>
-          <div class="bar-col"><div class="bar-val">$110</div><div class="bar ht" style="height:80%"></div><div class="bar-lbl">Hotel<br>4★</div></div>
-          <div class="bar-col"><div class="bar-val">$185</div><div class="bar ht" style="height:100%"></div><div class="bar-lbl">Hotel<br>5★</div></div>
+    <!-- Distribucion de precios -->
+    <div style="background:#fff;border:1px solid #E5E7EB;border-radius:12px;padding:16px;margin-bottom:14px">
+      <div style="font-size:14px;font-weight:700;margin-bottom:12px">Distribucion de precios por noche (USD)</div>
+      <div style="display:flex;gap:6px;align-items:end;height:100px;margin-bottom:8px">
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center">
+          <div style="font-size:10px;font-weight:700;color:#1F2937">2</div>
+          <div style="width:100%;background:#D1FAE5;border-radius:4px 4px 0 0;height:20px"></div>
+          <div style="font-size:9px;color:#6B7280;margin-top:4px">$35-40</div>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center">
+          <div style="font-size:10px;font-weight:700;color:#1F2937">5</div>
+          <div style="width:100%;background:#0D9488;border-radius:4px 4px 0 0;height:50px"></div>
+          <div style="font-size:9px;color:#6B7280;margin-top:4px">$40-50</div>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center">
+          <div style="font-size:10px;font-weight:700;color:#059669;font-size:11px">6</div>
+          <div style="width:100%;background:#059669;border-radius:4px 4px 0 0;height:60px"></div>
+          <div style="font-size:9px;color:#6B7280;margin-top:4px;font-weight:600">$50-60</div>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center">
+          <div style="font-size:10px;font-weight:700;color:#1F2937">3</div>
+          <div style="width:100%;background:#D97706;border-radius:4px 4px 0 0;height:30px"></div>
+          <div style="font-size:9px;color:#6B7280;margin-top:4px">$60-70</div>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center">
+          <div style="font-size:10px;font-weight:700;color:#1F2937">1</div>
+          <div style="width:100%;background:#DC2626;border-radius:4px 4px 0 0;height:10px"></div>
+          <div style="font-size:9px;color:#6B7280;margin-top:4px">$70-80</div>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center">
+          <div style="font-size:10px;font-weight:700;color:#1F2937">1</div>
+          <div style="width:100%;background:#DC2626;border-radius:4px 4px 0 0;height:10px"></div>
+          <div style="font-size:9px;color:#6B7280;margin-top:4px">$80+</div>
         </div>
       </div>
+      <div style="font-size:11px;color:#6B7280;display:flex;gap:16px;justify-content:center;margin-top:4px">
+        <span>P25: <strong style="color:#1F2937">$42</strong></span>
+        <span>Mediana: <strong style="color:#1F2937">$51</strong></span>
+        <span>P75: <strong style="color:#1F2937">$62</strong></span>
+        <span>Desv. estandar: <strong style="color:#1F2937">$13.2</strong></span>
+      </div>
+    </div>
 
-      <div class="compare" style="margin-top:16px">
-        <div class="panel airbnb">
-          <div class="panel-title">Airbnb Miraflores <span class="tag-airbnb">18 listings</span></div>
-          <table class="dtable">
-            <thead><tr><th>Listing</th><th>Rating</th><th style="text-align:right">USD/noche</th></tr></thead>
-            <tbody>
-              <tr><td>Depto Centro <span class="tag-super">Superhost</span></td><td class="ctr">5.0</td><td class="p-airbnb">$42</td></tr>
-              <tr><td>Studio moderno</td><td class="ctr">4.8</td><td class="p-airbnb">$41</td></tr>
-              <tr><td>Vista al mar Kennedy</td><td class="ctr">4.92</td><td class="p-airbnb">$54</td></tr>
-              <tr><td>Loft Larcomar <span class="tag-super">Superhost</span></td><td class="ctr">4.9</td><td class="p-airbnb">$80</td></tr>
-              <tr><td>Ejecutivo Benavides</td><td class="ctr">4.88</td><td class="p-airbnb">$57</td></tr>
-              <tr><td>Penthouse <span class="tag-new2">Nuevo</span></td><td class="ctr">—</td><td class="p-airbnb">$62</td></tr>
-              <tr><td>Studio Parque Kennedy</td><td class="ctr">4.94</td><td class="p-airbnb">$44</td></tr>
-              <tr><td>Familiar Diagonal</td><td class="ctr">4.83</td><td class="p-airbnb">$51</td></tr>
-              <tr><td>Suite Malecon <span class="tag-super">Superhost</span></td><td class="ctr">4.97</td><td class="p-airbnb">$49</td></tr>
-              <tr><td>Loft Barranco</td><td class="ctr">4.77</td><td class="p-airbnb">$38</td></tr>
-            </tbody>
-          </table>
-          <div class="insight" style="margin-top:10px">
-            <h4>Distribucion precios Airbnb</h4>
-            <div class="metric-row"><span class="mlabel">Minimo</span><span class="mval">$38/noche</span></div>
-            <div class="metric-row"><span class="mlabel">Percentil 25</span><span class="mval">$42/noche</span></div>
-            <div class="metric-row"><span class="mlabel">Mediana</span><span class="mval">$51/noche</span></div>
-            <div class="metric-row"><span class="mlabel">Promedio</span><span class="mval">$54/noche</span></div>
-            <div class="metric-row"><span class="mlabel">Percentil 75</span><span class="mval">$62/noche</span></div>
-            <div class="metric-row"><span class="mlabel">Maximo</span><span class="mval">$84/noche</span></div>
-          </div>
-        </div>
-        <div class="panel hotel">
-          <div class="panel-title">Hoteles ref. mercado <span class="tag-hotel">Miraflores</span></div>
-          <table class="dtable">
-            <thead><tr><th>Referencia</th><th>Cat.</th><th style="text-align:right">USD/noche</th><th style="text-align:right">vs Airbnb</th></tr></thead>
-            <tbody>
-              <tr><td>Hostal promedio</td><td class="ctr">2★</td><td class="p-hotel">$55</td><td class="p-green">+2%</td></tr>
-              <tr><td>Hotel economico</td><td class="ctr">3★</td><td class="p-hotel">$72</td><td class="p-amber">+33%</td></tr>
-              <tr><td>Hotel mid-range</td><td class="ctr">3★</td><td class="p-hotel">$82</td><td class="p-red">+52%</td></tr>
-              <tr><td>Hotel business</td><td class="ctr">4★</td><td class="p-hotel">$110</td><td class="p-red">+104%</td></tr>
-              <tr><td>Hotel premium</td><td class="ctr">5★</td><td class="p-hotel">$185</td><td class="p-red">+243%</td></tr>
-            </tbody>
-          </table>
-          <div class="insight" style="margin-top:10px">
-            <h4>Brecha por categoria</h4>
-            <div class="metric-row"><span class="mlabel">Hostal 2★ vs Airbnb</span><span class="mval up">+2% — casi igual</span></div>
-            <div class="metric-row"><span class="mlabel">Hotel 3★ vs Airbnb</span><span class="mval down">+47% mas caro</span></div>
-            <div class="metric-row"><span class="mlabel">Hotel 4★ vs Airbnb</span><span class="mval down">+104% mas caro</span></div>
-            <div class="metric-row"><span class="mlabel">Hotel 5★ vs Airbnb</span><span class="mval down">+304% mas caro</span></div>
-          </div>
+    <!-- Listings cards igual que autos -->
+    <div style="font-size:14px;font-weight:700;margin:16px 0 10px">Listings Airbnb — ordenados por precio</div>
+
+    <div class="card"><div class="card-body" style="padding:12px 16px"><div class="card-info">
+      <div><span class="badge" style="background:#D1FAE5;color:#065F46">Bajo promedio</span><span class="badge" style="background:#EDE9FE;color:#6D28D9">4.77 ★</span><span class="badge b-region">Barranco</span></div>
+      <div class="card-title">Loft Barranco — limite Miraflores</div>
+      <div class="card-detail">79 resenas · Departamento completo</div>
+    </div><div class="card-price-col"><div class="card-price" style="color:#059669">$38</div><div class="card-price-sub">USD/noche · -30% vs prom</div></div></div></div>
+
+    <div class="card"><div class="card-body" style="padding:12px 16px"><div class="card-info">
+      <div><span class="badge" style="background:#D1FAE5;color:#065F46">Bajo promedio</span><span class="badge" style="background:#EDE9FE;color:#6D28D9">4.8 ★</span><span class="badge" style="background:#D1FAE5;color:#065F46">Superhost</span><span class="badge b-region">Miraflores</span></div>
+      <div class="card-title">Studio moderno Miraflores</div>
+      <div class="card-detail">45 resenas · Departamento completo</div>
+    </div><div class="card-price-col"><div class="card-price" style="color:#059669">$41</div><div class="card-price-sub">USD/noche · -24% vs prom</div></div></div></div>
+
+    <div class="card"><div class="card-body" style="padding:12px 16px"><div class="card-info">
+      <div><span class="badge" style="background:#D1FAE5;color:#065F46">Bajo promedio</span><span class="badge" style="background:#EDE9FE;color:#6D28D9">5.0 ★</span><span class="badge" style="background:#D1FAE5;color:#065F46">Superhost</span><span class="badge b-region">Miraflores</span></div>
+      <div class="card-title">Depto Centro Miraflores</div>
+      <div class="card-detail">3 resenas · Departamento completo</div>
+    </div><div class="card-price-col"><div class="card-price" style="color:#059669">$42</div><div class="card-price-sub">USD/noche · -22% vs prom</div></div></div></div>
+
+    <div class="card" style="border-color:#0D9488;border-width:2px"><div class="card-body" style="padding:12px 16px"><div class="card-info">
+      <div><span class="badge" style="background:#FEF3C7;color:#92400E">Promedio zona</span><span class="badge" style="background:#EDE9FE;color:#6D28D9">4.92 ★</span><span class="badge b-region">Miraflores</span></div>
+      <div class="card-title">Vista al mar Kennedy</div>
+      <div class="card-detail">61 resenas · Departamento completo · <strong>Descuento 25% activo</strong></div>
+    </div><div class="card-price-col"><div class="card-price">$54</div><div class="card-price-sub">USD/noche · precio promedio</div></div></div></div>
+
+    <div class="card"><div class="card-body" style="padding:12px 16px"><div class="card-info">
+      <div><span class="badge" style="background:#FEF2F2;color:#991B1B">Sobre promedio</span><span class="badge b-new">NUEVO</span><span class="badge" style="background:#EDE9FE;color:#6D28D9">Sin rating</span><span class="badge b-region">Miraflores</span></div>
+      <div class="card-title">Penthouse Miraflores</div>
+      <div class="card-detail">0 resenas · Listing nuevo sin historial</div>
+    </div><div class="card-price-col"><div class="card-price" style="color:#DC2626">$62</div><div class="card-price-sub">USD/noche · +15% vs prom</div></div></div></div>
+
+    <div class="card"><div class="card-body" style="padding:12px 16px"><div class="card-info">
+      <div><span class="badge" style="background:#FEF2F2;color:#991B1B">Sobre promedio</span><span class="badge" style="background:#EDE9FE;color:#6D28D9">4.9 ★</span><span class="badge" style="background:#D1FAE5;color:#065F46">Superhost</span><span class="badge b-region">Larcomar</span></div>
+      <div class="card-title">Loft premium Larcomar</div>
+      <div class="card-detail">118 resenas · Loft completo · <strong>Descuento 26% activo</strong></div>
+    </div><div class="card-price-col"><div class="card-price" style="color:#DC2626">$80</div><div class="card-price-sub">USD/noche · +48% vs prom</div></div></div></div>
+
+    <!-- Analisis -->
+    <div style="font-size:14px;font-weight:700;margin:20px 0 10px">Analisis del mercado</div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
+      <div class="info-bar" style="flex-direction:column;align-items:start;gap:6px;background:#ECFDF5;border-color:#A7F3D0">
+        <strong style="color:#065F46;font-size:13px">Listings bajo el promedio: 8 de 18 (44%)</strong>
+        <div style="font-size:11px;color:#065F46">Precio entre $38-$50/noche. Compiten directamente contra hostales 2★ ($55). Estos son los que mas amenazan al segmento hotelero economico — ofrecen cocina, mas espacio y rating alto por menos precio.</div>
+      </div>
+      <div class="info-bar" style="flex-direction:column;align-items:start;gap:6px;background:#FEF2F2;border-color:#FECACA">
+        <strong style="color:#991B1B;font-size:13px">Listings sobre el promedio: 5 de 18 (28%)</strong>
+        <div style="font-size:11px;color:#991B1B">Precio entre $60-$84/noche. Son los lofts premium y Superhosts con 100+ resenas. Compiten contra hoteles 3★ pero con experiencia diferente (diseno, ubicacion, cocina).</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px">
+      <div style="background:#fff;border:1px solid #E5E7EB;border-radius:12px;padding:14px">
+        <div style="font-size:12px;font-weight:700;color:#1F2937;margin-bottom:6px">Competencia por categoria hotelera</div>
+        <div style="font-size:11px;color:#6B7280;line-height:1.6">
+          <div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #F3F4F6"><span>Hostal 2★ ($55)</span><strong style="color:#059669">+2% vs Airbnb</strong></div>
+          <div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #F3F4F6"><span>Hotel 3★ ($75)</span><strong style="color:#D97706">+39% vs Airbnb</strong></div>
+          <div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #F3F4F6"><span>Hotel 4★ ($110)</span><strong style="color:#DC2626">+104% vs Airbnb</strong></div>
+          <div style="display:flex;justify-content:space-between;padding:3px 0"><span>Hotel 5★ ($185)</span><strong style="color:#DC2626">+243% vs Airbnb</strong></div>
         </div>
       </div>
-
-      <div class="analysis">
-        <h3>Analisis — Que significa para revenue management</h3>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px">
-          <div class="insight">
-            <h4>El 3★ es el mas amenazado</h4>
-            <p>USD $75-85/noche vs Airbnb a $50-60 con cocina y rating 4.9+. El viajero que compara ve 40% de ahorro. <strong style="color:#F1F5F9">Si no baja tarifa o agrega valor, pierde contra Airbnb.</strong></p>
-          </div>
-          <div class="insight">
-            <h4>Los Superanfitriones son mini-hoteles</h4>
-            <p>4 de 18 listings son Superhost con rating 4.9+, fotos pro, check-in auto. <strong style="color:#F1F5F9">Son los que capturan al viajero que antes iba al hotel.</strong></p>
-          </div>
-          <div class="insight">
-            <h4>Pricing dinamico con datos reales</h4>
-            <p>Si el promedio Airbnb sube de $54 a $70 en temporada alta, el hotel puede subir sin perder competitividad. <strong style="color:#F1F5F9">Scrapeando 2x/dia se arma la curva real del mercado.</strong></p>
-          </div>
-          <div class="insight">
-            <h4>El 5★ no compite con Airbnb</h4>
-            <p>$185+/noche es otro segmento. El dato util es la ocupacion Airbnb como indicador de demanda turistica en la zona.</p>
-          </div>
-        </div>
-        <h2>Recomendaciones</h2>
-        <div class="rec-grid">
-          <div class="rec-card"><div class="rnum">1</div><div class="rtitle">Pricing dinamico</div><div class="rdesc">Ajustar tarifa segun mediana Airbnb. Si sube, tu subes. Si baja, promo antes que caiga la ocupacion.</div></div>
-          <div class="rec-card"><div class="rnum">2</div><div class="rtitle">Diferenciacion</div><div class="rdesc">Desayuno, recepcion 24/7, housekeeping. Lo que Airbnb no da. Comunicarlo en el booking.</div></div>
-          <div class="rec-card"><div class="rnum">3</div><div class="rtitle">Monitoreo diario</div><div class="rdesc">Radar scrapea Airbnb 2x/dia y alerta cuando cambian precios o sube la oferta en tu zona.</div></div>
+      <div style="background:#fff;border:1px solid #E5E7EB;border-radius:12px;padding:14px">
+        <div style="font-size:12px;font-weight:700;color:#1F2937;margin-bottom:6px">Perfil de los Superanfitriones</div>
+        <div style="font-size:11px;color:#6B7280;line-height:1.6">
+          <div style="padding:3px 0;border-bottom:1px solid #F3F4F6"><strong style="color:#1F2937">4 de 18</strong> son Superhost (22%)</div>
+          <div style="padding:3px 0;border-bottom:1px solid #F3F4F6">Rating promedio: <strong style="color:#1F2937">4.92</strong></div>
+          <div style="padding:3px 0;border-bottom:1px solid #F3F4F6">Precio promedio: <strong style="color:#1F2937">$52/noche</strong></div>
+          <div style="padding:3px 0">Operan como mini-hoteles con fotos pro y check-in automatizado</div>
         </div>
       </div>
+      <div style="background:#fff;border:1px solid #E5E7EB;border-radius:12px;padding:14px">
+        <div style="font-size:12px;font-weight:700;color:#1F2937;margin-bottom:6px">Descuentos activos</div>
+        <div style="font-size:11px;color:#6B7280;line-height:1.6">
+          <div style="padding:3px 0;border-bottom:1px solid #F3F4F6"><strong style="color:#1F2937">7 de 18</strong> tienen descuento (39%)</div>
+          <div style="padding:3px 0;border-bottom:1px solid #F3F4F6">Descuento promedio: <strong style="color:#059669">-18%</strong></div>
+          <div style="padding:3px 0;border-bottom:1px solid #F3F4F6">Maximo descuento: <strong style="color:#059669">-26%</strong> (Loft Larcomar)</div>
+          <div style="padding:3px 0">Indica <strong style="color:#1F2937">sobreoferta</strong> — los hosts estan bajando precios para llenar</div>
+        </div>
+      </div>
+    </div>
 
-      <div class="arr-footer">Radar Revenue · Airbnb data scrapeada 10 jun 2026 · Precios hoteles: referencia mercado</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
+      <div style="background:#fff;border:1px solid #E5E7EB;border-radius:12px;padding:14px">
+        <div style="font-size:12px;font-weight:700;color:#1F2937;margin-bottom:6px">Oportunidades de pricing para hoteles</div>
+        <div style="font-size:11px;color:#6B7280;line-height:1.8">
+          <strong style="color:#059669">Si eres hotel 3★:</strong> Tu tarifa de $75 esta 39% sobre Airbnb. Baja a $65 y agrega desayuno — quedas competitivo con valor agregado que Airbnb no puede dar.<br>
+          <strong style="color:#D97706">Si eres hotel 4★:</strong> No compitas por precio. Comunica lo que Airbnb no tiene: room service, piscina, gym, concierge. Tu cliente paga por servicio, no por metros cuadrados.<br>
+          <strong style="color:#DC2626">Si eres hostal:</strong> Estas al mismo precio que Airbnb ($55 vs $54). Tu unica ventaja es ubicacion y sociabilidad. Si no la tienes, pierde.
+        </div>
+      </div>
+      <div style="background:#fff;border:1px solid #E5E7EB;border-radius:12px;padding:14px">
+        <div style="font-size:12px;font-weight:700;color:#1F2937;margin-bottom:6px">Senales del mercado</div>
+        <div style="font-size:11px;color:#6B7280;line-height:1.8">
+          <strong style="color:#1F2937">39% con descuento</strong> = sobreoferta en julio (invierno Lima). Los hosts no estan llenando y bajan precio. Oportunidad para hoteles de capturar demanda con promos agresivas.<br>
+          <strong style="color:#1F2937">1 listing nuevo sin reviews</strong> = oferta sigue creciendo. Mas competencia entrando al mercado.<br>
+          <strong style="color:#1F2937">Rating promedio 4.89</strong> = calidad alta. El viajero espera un estandar — un hotel con 3.5 en Google pierde contra esto.
+        </div>
+      </div>
+    </div>
+
+    <div class="info-bar" style="background:#EDE9FE;border-color:#C4B5FD;color:#5B21B6;justify-content:center;font-size:11px">
+      Datos Airbnb reales scrapeados 10 jun 2026 · Precios hoteles: referencia de mercado · Actualizado cada 12 horas en produccion
     </div>
   </div>
 
