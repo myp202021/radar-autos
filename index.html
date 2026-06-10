@@ -31,6 +31,12 @@
   .b-year { background: #EEF2FF; color: #4338CA; }
   .b-region { background: #F3F4F6; color: #4B5563; }
   .b-usado { background: #FEF3C7; color: #92400E; }
+  .b-new { background: #DC2626; color: #fff; animation: pulse 2s infinite; }
+  .b-today { background: #059669; color: #fff; }
+  .b-week { background: #D97706; color: #fff; }
+  @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.7;} }
+  .card-date { font-size: 11px; color: #6B7280; margin-top: 3px; display: flex; align-items: center; gap: 5px; }
+  .card-date svg { width: 14px; height: 14px; color: #9CA3AF; }
   .card { background: #fff; border: 1px solid #E5E7EB; border-radius: 12px; margin-bottom: 10px; display: flex; overflow: hidden; transition: all 0.15s; }
   .card:hover { border-color: #0D9488; box-shadow: 0 4px 16px rgba(13,148,136,0.1); }
   .card-img { width: 200px; min-height: 130px; background: #E5E7EB; flex-shrink: 0; object-fit: cover; }
@@ -95,10 +101,10 @@
         <img class="card-img" src="https://chileautos.pxcrush.net/chileautos/cars/private/9u5byaaqrk40e86rdu5lw9thu.jpg?pxc_method=fitfill&pxc_bgtype=self&pxc_size=720,480" alt="">
         <div class="card-body">
           <div class="card-info">
-            <div><span class="badge b-part">Particular</span><span class="badge b-year">2021</span><span class="badge b-usado">Usado</span><span class="badge b-region">RM Santiago</span></div>
+            <div><span class="badge b-new">NUEVO</span><span class="badge b-today">Hoy</span><span class="badge b-part">Particular</span><span class="badge b-year">2021</span><span class="badge b-region">RM Santiago</span></div>
             <div class="card-title">2021 Toyota Hilux 2.4D Manual DX 4WD</div>
             <div class="card-detail">Metropolitana de Santiago</div>
-            <div class="card-tel-hidden">Telefono oculto por ChileAutos — requiere sesion</div>
+            <div class="card-date"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Detectado hoy 10 jun 2026, 18:30</div>
             <button class="card-contact" onclick="window.open('https://www.chileautos.cl/vehiculos/detalles/2021-toyota-hilux-2-4d-manual-dx-4wd/CL-AD-17952730/', '_blank')">Ver aviso y contactar</button>
           </div>
           <div class="card-price-col">
@@ -113,10 +119,10 @@
         <img class="card-img" src="https://chileautos.pxcrush.net/chileautos/cars/private/8jsetfvdhwpq8y6f290euvuqb.jpg?pxc_method=fitfill&pxc_bgtype=self&pxc_size=720,480" alt="">
         <div class="card-body">
           <div class="card-info">
-            <div><span class="badge b-part">Particular</span><span class="badge b-year">2022</span><span class="badge b-usado">Usado</span><span class="badge b-region">Antofagasta</span></div>
+            <div><span class="badge b-new">NUEVO</span><span class="badge b-today">Hoy</span><span class="badge b-part">Particular</span><span class="badge b-year">2022</span><span class="badge b-region">Antofagasta</span></div>
             <div class="card-title">2022 Toyota Hilux DX</div>
             <div class="card-detail">Antofagasta · 33.000 km</div>
-            <div class="card-tel-hidden">Telefono oculto por ChileAutos — requiere sesion</div>
+            <div class="card-date"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Detectado hoy 10 jun 2026, 18:30</div>
             <button class="card-contact" onclick="window.open('https://www.chileautos.cl/vehiculos/detalles/2022-toyota-hilux-dx/CL-AD-20477491/', '_blank')">Ver aviso y contactar</button>
           </div>
           <div class="card-price-col">
@@ -131,10 +137,10 @@
         <img class="card-img" src="https://chileautos.pxcrush.net/chileautos/cars/private/99hd5or1v99r61j6u3e1tesbn.jpg?pxc_method=fitfill&pxc_bgtype=self&pxc_size=720,480" alt="">
         <div class="card-body">
           <div class="card-info">
-            <div><span class="badge b-part">Particular</span><span class="badge b-year">2022</span><span class="badge b-usado">Usado</span><span class="badge b-region">Bio Bio</span></div>
+            <div><span class="badge b-week">Esta semana</span><span class="badge b-part">Particular</span><span class="badge b-year">2022</span><span class="badge b-region">Bio Bio</span></div>
             <div class="card-title">2022 Toyota Hilux 2.4D DX 4WD</div>
             <div class="card-detail">Bio Bio</div>
-            <div class="card-tel-hidden">Telefono oculto por ChileAutos — requiere sesion</div>
+            <div class="card-date"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Detectado 8 jun 2026</div>
             <button class="card-contact" onclick="window.open('https://www.chileautos.cl/vehiculos/detalles/2022-toyota-hilux-2-4d-dx-4wd/CL-AD-20488522/', '_blank')">Ver aviso y contactar</button>
           </div>
           <div class="card-price-col">
@@ -149,10 +155,10 @@
         <img class="card-img" src="https://chileautos.pxcrush.net/chileautos/cars/private/f49lurl6hafq6fmqhvuuo9tez.jpg?pxc_method=fitfill&pxc_bgtype=self&pxc_size=720,480" alt="">
         <div class="card-body">
           <div class="card-info">
-            <div><span class="badge b-part">Particular</span><span class="badge b-year">2023</span><span class="badge b-usado">Usado</span><span class="badge b-region">RM Santiago</span></div>
+            <div><span class="badge b-week">Esta semana</span><span class="badge b-part">Particular</span><span class="badge b-year">2023</span><span class="badge b-region">RM Santiago</span></div>
             <div class="card-title">2023 Toyota Hilux 2.4D DX 4WD</div>
             <div class="card-detail">Metropolitana de Santiago</div>
-            <div class="card-tel-hidden">Telefono oculto por ChileAutos — requiere sesion</div>
+            <div class="card-date"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Detectado 7 jun 2026</div>
             <button class="card-contact" onclick="window.open('https://www.chileautos.cl/vehiculos/detalles/2023-toyota-hilux-2-4d-dx-4wd/CL-AD-20396487/', '_blank')">Ver aviso y contactar</button>
           </div>
           <div class="card-price-col">
@@ -167,10 +173,10 @@
         <img class="card-img" src="https://chileautos.pxcrush.net/chileautos/cars/private/4ek9vgu3dotk804mqro113l8p.jpg?pxc_method=fitfill&pxc_bgtype=self&pxc_size=720,480" alt="">
         <div class="card-body">
           <div class="card-info">
-            <div><span class="badge b-part">Particular</span><span class="badge b-year">2022</span><span class="badge b-usado">Usado</span><span class="badge b-region">Bio Bio</span></div>
+            <div><span class="badge b-part">Particular</span><span class="badge b-year">2022</span><span class="badge b-region">Bio Bio</span></div>
             <div class="card-title">2022 Toyota Hilux 2.8D SR 4WD</div>
             <div class="card-detail">Bio Bio</div>
-            <div class="card-tel-hidden">Telefono oculto por ChileAutos — requiere sesion</div>
+            <div class="card-date"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Detectado 3 jun 2026</div>
             <button class="card-contact" onclick="window.open('https://www.chileautos.cl/vehiculos/detalles/2022-toyota-hilux-2-8d-sr-4wd/CL-AD-20353388/', '_blank')">Ver aviso y contactar</button>
           </div>
           <div class="card-price-col">
@@ -185,10 +191,10 @@
         <img class="card-img" src="https://chileautos.pxcrush.net/chileautos/cars/private/77msiv3wo9lh6qrohyykvk15k.jpg?pxc_method=fitfill&pxc_bgtype=self&pxc_size=720,480" alt="">
         <div class="card-body">
           <div class="card-info">
-            <div><span class="badge b-part">Particular</span><span class="badge b-year">2024</span><span class="badge b-usado">Usado</span><span class="badge b-region">Antofagasta</span></div>
+            <div><span class="badge b-new">NUEVO</span><span class="badge b-today">Hoy</span><span class="badge b-part">Particular</span><span class="badge b-year">2024</span><span class="badge b-region">Antofagasta</span></div>
             <div class="card-title">2024 Toyota Hilux 2.8D SRV Auto 4WD</div>
             <div class="card-detail">Antofagasta</div>
-            <div class="card-tel-hidden">Telefono oculto por ChileAutos — requiere sesion</div>
+            <div class="card-date"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Detectado hoy 10 jun 2026, 18:30</div>
             <button class="card-contact" onclick="window.open('https://www.chileautos.cl/vehiculos/detalles/2024-toyota-hilux-2-8d-srv-auto-4wd/CL-AD-20516132/', '_blank')">Ver aviso y contactar</button>
           </div>
           <div class="card-price-col">
@@ -203,10 +209,10 @@
         <img class="card-img" src="https://chileautos.pxcrush.net/chileautos/cars/private/bl8sr6bdrhuo40shfu2uuydrb.jpg?pxc_method=fitfill&pxc_bgtype=self&pxc_size=720,480" alt="">
         <div class="card-body">
           <div class="card-info">
-            <div><span class="badge b-part">Particular</span><span class="badge b-year">2024</span><span class="badge b-usado">Usado</span><span class="badge b-region">RM Santiago</span></div>
+            <div><span class="badge b-part">Particular</span><span class="badge b-year">2024</span><span class="badge b-region">RM Santiago</span></div>
             <div class="card-title">2024 Toyota Hilux 2.8D GR-S Auto 4WD</div>
             <div class="card-detail">Metropolitana de Santiago</div>
-            <div class="card-tel-hidden">Telefono oculto por ChileAutos — requiere sesion</div>
+            <div class="card-date"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Detectado 1 jun 2026</div>
             <button class="card-contact" onclick="window.open('https://www.chileautos.cl/vehiculos/detalles/2024-toyota-hilux-2-8d-gr-s-auto-4wd/CL-AD-19354245/', '_blank')">Ver aviso y contactar</button>
           </div>
           <div class="card-price-col">
