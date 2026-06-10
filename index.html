@@ -3,235 +3,326 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Radar Autos — Solo Particulares</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<title>Radar — Propiedades · Autos · Arriendos</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'Inter', -apple-system, system-ui, sans-serif; background: #F3F4F6; color: #1F2937; min-height: 100vh; }
-  .navbar { background: linear-gradient(135deg, #0D9488 0%, #059669 100%); padding: 14px 24px; display: flex; justify-content: space-between; align-items: center; }
-  .navbar .logo { font-size: 20px; font-weight: 800; color: #fff; }
-  .navbar .logo span { opacity: 0.7; font-weight: 400; font-size: 13px; margin-left: 8px; }
-  .container { max-width: 1100px; margin: 0 auto; padding: 20px 16px; }
-  .tabs { display: flex; gap: 4px; background: #E5E7EB; padding: 4px; border-radius: 12px; margin-bottom: 18px; }
-  .tab { flex: 1; text-align: center; padding: 10px; border-radius: 10px; font-size: 13px; font-weight: 600; color: #6B7280; cursor: pointer; border: none; background: none; transition: all 0.2s; }
-  .tab.active { background: linear-gradient(135deg, #0D9488, #059669); color: #fff; box-shadow: 0 2px 8px rgba(13,148,136,0.3); }
-  .tab .cnt { display: inline-block; background: rgba(255,255,255,0.25); padding: 1px 7px; border-radius: 10px; font-size: 11px; margin-left: 5px; }
-  .kpis { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-bottom: 18px; }
-  .kpi { background: #fff; border: 1px solid #E5E7EB; border-radius: 12px; padding: 14px; text-align: center; }
-  .kpi .n { font-size: 26px; font-weight: 800; color: #0D9488; letter-spacing: -1px; }
-  .kpi .l { font-size: 11px; color: #9CA3AF; margin-top: 2px; }
-  .filters { background: #fff; border: 1px solid #E5E7EB; border-radius: 12px; padding: 14px 16px; margin-bottom: 14px; display: flex; gap: 10px; align-items: end; flex-wrap: wrap; }
-  .fg { display: flex; flex-direction: column; gap: 3px; }
-  .fg label { font-size: 10px; font-weight: 600; color: #6B7280; text-transform: uppercase; letter-spacing: 0.5px; }
-  .fg select, .fg input { font-family: inherit; font-size: 12px; padding: 7px 10px; border: 1px solid #D1D5DB; border-radius: 8px; background: #F9FAFB; }
-  .fg select:focus, .fg input:focus { outline: none; border-color: #0D9488; }
-  .badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 6px; margin-right: 4px; }
-  .b-part { background: #D1FAE5; color: #065F46; }
-  .b-year { background: #EEF2FF; color: #4338CA; }
-  .b-region { background: #F3F4F6; color: #4B5563; }
-  .b-usado { background: #FEF3C7; color: #92400E; }
-  .b-new { background: #DC2626; color: #fff; animation: pulse 2s infinite; }
-  .b-today { background: #059669; color: #fff; }
-  .b-week { background: #D97706; color: #fff; }
-  @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.7;} }
-  .card-date { font-size: 11px; color: #6B7280; margin-top: 3px; display: flex; align-items: center; gap: 5px; }
-  .card-date svg { width: 14px; height: 14px; color: #9CA3AF; }
-  .card { background: #fff; border: 1px solid #E5E7EB; border-radius: 12px; margin-bottom: 10px; display: flex; overflow: hidden; transition: all 0.15s; }
-  .card:hover { border-color: #0D9488; box-shadow: 0 4px 16px rgba(13,148,136,0.1); }
-  .card-img { width: 200px; min-height: 130px; background: #E5E7EB; flex-shrink: 0; object-fit: cover; }
-  .card-body { flex: 1; padding: 14px 16px; display: flex; justify-content: space-between; }
-  .card-info { flex: 1; }
-  .card-price-col { text-align: right; flex-shrink: 0; margin-left: 16px; display: flex; flex-direction: column; justify-content: center; }
-  .card-title { font-size: 15px; font-weight: 700; color: #1F2937; margin: 5px 0 4px; }
-  .card-detail { font-size: 12px; color: #6B7280; margin: 2px 0; }
-  .card-price { font-size: 22px; font-weight: 800; color: #0D9488; }
-  .card-price-sub { font-size: 11px; color: #9CA3AF; margin-top: 2px; }
-  .card-contact { display: inline-block; margin-top: 10px; font-size: 12px; font-weight: 600; color: #fff; background: linear-gradient(135deg, #0D9488, #059669); padding: 7px 16px; border-radius: 8px; text-decoration: none; cursor: pointer; border: none; }
-  .card-contact:hover { box-shadow: 0 2px 8px rgba(13,148,136,0.3); }
-  .card-tel { font-size: 13px; font-weight: 700; color: #0D9488; margin-top: 6px; }
-  .card-tel-hidden { font-size: 11px; color: #9CA3AF; font-style: italic; }
-  .empty { text-align: center; padding: 60px 20px; color: #9CA3AF; font-size: 14px; }
-  .section { display: none; }
-  .section.active { display: block; }
-  .info-bar { background: #ECFDF5; border: 1px solid #A7F3D0; border-radius: 10px; padding: 12px 16px; margin-bottom: 16px; font-size: 12px; color: #065F46; display: flex; align-items: center; gap: 8px; }
-  .info-bar strong { color: #047857; }
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',system-ui,sans-serif;background:#F3F4F6;color:#1F2937;min-height:100vh}
+.navbar{background:linear-gradient(135deg,#0D9488 0%,#059669 100%);padding:14px 24px;display:flex;justify-content:space-between;align-items:center}
+.navbar .logo{font-size:20px;font-weight:800;color:#fff}
+.navbar .logo span{opacity:.7;font-weight:400;font-size:13px;margin-left:8px}
+.container{max-width:1200px;margin:0 auto;padding:20px 16px}
+.tabs{display:flex;gap:4px;background:#E5E7EB;padding:4px;border-radius:12px;margin-bottom:18px}
+.tab{flex:1;text-align:center;padding:10px;border-radius:10px;font-size:13px;font-weight:600;color:#6B7280;cursor:pointer;border:none;background:none;transition:all .2s}
+.tab.active{background:linear-gradient(135deg,#0D9488,#059669);color:#fff;box-shadow:0 2px 8px rgba(13,148,136,.3)}
+.tab .cnt{display:inline-block;background:rgba(255,255,255,.25);padding:1px 7px;border-radius:10px;font-size:11px;margin-left:5px}
+.section{display:none}.section.active{display:block}
+
+/* === AUTOS === */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}
+.kpi{background:#fff;border:1px solid #E5E7EB;border-radius:12px;padding:14px;text-align:center}
+.kpi .n{font-size:26px;font-weight:800;color:#0D9488;letter-spacing:-1px}
+.kpi .l{font-size:11px;color:#9CA3AF;margin-top:2px}
+.filters{background:#fff;border:1px solid #E5E7EB;border-radius:12px;padding:14px 16px;margin-bottom:14px;display:flex;gap:10px;align-items:end;flex-wrap:wrap}
+.fg{display:flex;flex-direction:column;gap:3px}
+.fg label{font-size:10px;font-weight:600;color:#6B7280;text-transform:uppercase;letter-spacing:.5px}
+.fg select,.fg input{font-family:inherit;font-size:12px;padding:7px 10px;border:1px solid #D1D5DB;border-radius:8px;background:#F9FAFB}
+.badge{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:6px;margin-right:4px}
+.b-part{background:#D1FAE5;color:#065F46}
+.b-year{background:#EEF2FF;color:#4338CA}
+.b-region{background:#F3F4F6;color:#4B5563}
+.b-new{background:#DC2626;color:#fff;animation:pulse 2s infinite}
+.b-today{background:#059669;color:#fff}
+.b-week{background:#D97706;color:#fff}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.7}}
+.card{background:#fff;border:1px solid #E5E7EB;border-radius:12px;margin-bottom:10px;display:flex;overflow:hidden;transition:all .15s}
+.card:hover{border-color:#0D9488;box-shadow:0 4px 16px rgba(13,148,136,.1)}
+.card-img{width:200px;min-height:130px;background:#E5E7EB;flex-shrink:0;object-fit:cover}
+.card-body{flex:1;padding:14px 16px;display:flex;justify-content:space-between}
+.card-info{flex:1}
+.card-price-col{text-align:right;flex-shrink:0;margin-left:16px;display:flex;flex-direction:column;justify-content:center}
+.card-title{font-size:15px;font-weight:700;color:#1F2937;margin:5px 0 4px}
+.card-detail{font-size:12px;color:#6B7280;margin:2px 0}
+.card-price{font-size:22px;font-weight:800;color:#0D9488}
+.card-price-sub{font-size:11px;color:#9CA3AF;margin-top:2px}
+.card-contact{display:inline-block;margin-top:10px;font-size:12px;font-weight:600;color:#fff;background:linear-gradient(135deg,#0D9488,#059669);padding:7px 16px;border-radius:8px;text-decoration:none;cursor:pointer;border:none}
+.card-date{font-size:11px;color:#6B7280;margin-top:3px;display:flex;align-items:center;gap:5px}
+.card-date svg{width:14px;height:14px;color:#9CA3AF}
+.info-bar{background:#ECFDF5;border:1px solid #A7F3D0;border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:12px;color:#065F46;display:flex;align-items:center;gap:8px}
+.info-bar strong{color:#047857}
+.empty{text-align:center;padding:60px 20px;color:#9CA3AF;font-size:14px}
+
+/* === ARRIENDOS (dark theme) === */
+.dark-section{background:#0F172A;border-radius:14px;padding:20px;color:#E2E8F0}
+.dark-section h2{font-size:16px;font-weight:800;margin:16px 0 12px;display:flex;align-items:center;gap:8px;color:#E2E8F0}
+.dark-section h2::before{content:'';width:3px;height:16px;background:linear-gradient(135deg,#7C3AED,#A78BFA);border-radius:2px}
+.arr-kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:16px}
+.arr-kpi{background:#1E293B;border:1px solid #334155;border-radius:12px;padding:14px;text-align:center;position:relative;overflow:hidden}
+.arr-kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(135deg,#7C3AED,#A78BFA)}
+.arr-kpi .n{font-size:24px;font-weight:800;letter-spacing:-1px}
+.arr-kpi .n.purple{color:#A78BFA}.arr-kpi .n.green{color:#34D399}.arr-kpi .n.red{color:#F87171}.arr-kpi .n.amber{color:#FBBF24}.arr-kpi .n.white{color:#F1F5F9}
+.arr-kpi .l{font-size:10px;color:#94A3B8;margin-top:3px;line-height:1.3}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.panel{background:#1E293B;border:1px solid #334155;border-radius:14px;padding:18px;position:relative;overflow:hidden}
+.panel::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.panel.airbnb::before{background:linear-gradient(90deg,#FF385C,#E31C5F)}
+.panel.hotel::before{background:linear-gradient(90deg,#FBBF24,#F59E0B)}
+.panel-title{font-size:14px;font-weight:800;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.panel.airbnb .panel-title{color:#FF385C}
+.panel.hotel .panel-title{color:#FBBF24}
+.tag-airbnb{background:rgba(255,56,92,.15);color:#FF385C;display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:5px}
+.tag-hotel{background:rgba(251,191,36,.15);color:#FBBF24;display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:5px}
+.tag-new2{background:#7C3AED;color:#fff;display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:5px}
+.tag-super{background:rgba(52,211,153,.15);color:#34D399;display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:5px}
+.dtable{width:100%;border-collapse:separate;border-spacing:0;font-size:11px;border-radius:8px;overflow:hidden;border:1px solid #334155}
+.dtable thead th{background:#0F172A;color:#94A3B8;padding:8px 10px;text-align:left;font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.5px}
+.dtable tbody td{padding:7px 10px;border-bottom:1px solid #1E293B;color:#CBD5E1}
+.dtable tbody tr:nth-child(even){background:rgba(30,41,59,.5)}
+td.p-airbnb{font-weight:700;color:#FF385C;text-align:right}
+td.p-hotel{font-weight:700;color:#FBBF24;text-align:right}
+td.p-green{font-weight:700;color:#34D399;text-align:right}
+td.p-red{font-weight:700;color:#F87171;text-align:right}
+td.p-amber{font-weight:700;color:#FBBF24;text-align:right}
+td.ctr{text-align:center}
+.insight{background:linear-gradient(135deg,rgba(124,58,237,.1),rgba(167,139,250,.05));border:1px solid rgba(124,58,237,.25);border-radius:10px;padding:12px 16px;margin:10px 0}
+.insight h4{color:#A78BFA;font-size:12px;margin-bottom:4px}
+.insight p{font-size:11px;color:#CBD5E1;line-height:1.5}
+.metric-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #334155;font-size:12px}
+.metric-row:last-child{border:none}
+.metric-row .mlabel{color:#94A3B8}
+.metric-row .mval{font-weight:700;color:#E2E8F0}
+.metric-row .mval.up{color:#34D399}
+.metric-row .mval.down{color:#F87171}
+.bar-chart{display:flex;align-items:end;gap:6px;height:120px;margin:10px 0}
+.bar-col{display:flex;flex-direction:column;align-items:center;flex:1;gap:4px}
+.bar{border-radius:4px 4px 0 0;width:100%;min-height:4px}
+.bar.ab{background:linear-gradient(180deg,#FF385C,#E31C5F)}
+.bar.ht{background:linear-gradient(180deg,#FBBF24,#F59E0B)}
+.bar-lbl{font-size:9px;color:#94A3B8;text-align:center}
+.bar-val{font-size:10px;font-weight:700;color:#E2E8F0}
+.legend{display:flex;gap:16px;justify-content:center;margin:8px 0;font-size:11px;color:#94A3B8}
+.legend span{display:flex;align-items:center;gap:5px}
+.dot{width:10px;height:10px;border-radius:3px;display:inline-block}
+.dot-ab{background:#FF385C}.dot-ht{background:#FBBF24}
+.analysis{background:#1E293B;border:1px solid #334155;border-radius:14px;padding:18px;margin-top:16px}
+.analysis h3{font-size:14px;font-weight:800;color:#F1F5F9;margin-bottom:12px}
+.rec-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:8px}
+.rec-card{background:#0F172A;border:1px solid #334155;border-radius:10px;padding:14px}
+.rec-card .rnum{font-size:28px;font-weight:900;color:#7C3AED;margin-bottom:4px}
+.rec-card .rtitle{font-size:12px;font-weight:700;color:#F1F5F9;margin-bottom:4px}
+.rec-card .rdesc{font-size:11px;color:#94A3B8;line-height:1.5}
+.arr-footer{text-align:center;padding:16px;font-size:10px;color:#475569;border-top:1px solid #334155;margin-top:20px}
 </style>
 </head>
 <body>
 
 <div class="navbar">
-  <div class="logo">Radar Autos <span>Solo vende-dueno · ChileAutos.cl</span></div>
+  <div class="logo">Radar <span>Propiedades · Autos · Arriendos</span></div>
 </div>
 
 <div class="container">
   <div class="tabs">
     <button class="tab" onclick="switchTab('propiedades')" id="tab-propiedades">Propiedades</button>
-    <button class="tab active" onclick="switchTab('autos')" id="tab-autos">Autos <span class="cnt" id="cnt">7</span></button>
+    <button class="tab active" onclick="switchTab('autos')" id="tab-autos">Autos <span class="cnt">7</span></button>
+    <button class="tab" onclick="switchTab('arriendos')" id="tab-arriendos">Arriendos <span class="cnt">18</span></button>
   </div>
 
+  <!-- ======= PROPIEDADES ======= -->
   <div class="section" id="section-propiedades">
     <div class="empty">🏠 Seccion propiedades — conectar con Supabase existente</div>
   </div>
 
+  <!-- ======= AUTOS ======= -->
   <div class="section active" id="section-autos">
-    <div class="info-bar">
-      <strong>Solo particulares.</strong> Se excluyen automotoras y dealers. Los avisos mostrados son de personas naturales vendiendo su vehiculo — leads para captacion.
-    </div>
-
+    <div class="info-bar"><strong>Solo particulares.</strong> Se excluyen automotoras y dealers. Leads para captacion.</div>
     <div class="kpis">
       <div class="kpi"><div class="n">7</div><div class="l">Particulares encontrados</div></div>
       <div class="kpi"><div class="n">$26.8M</div><div class="l">Precio promedio</div></div>
       <div class="kpi"><div class="n">$15.9M</div><div class="l">Precio minimo</div></div>
       <div class="kpi"><div class="n">4</div><div class="l">Regiones</div></div>
     </div>
-
     <div class="filters">
       <div class="fg"><label>Marca</label><select><option>Toyota</option></select></div>
       <div class="fg"><label>Modelo</label><select><option>Hilux</option></select></div>
       <div class="fg"><label>Ano desde</label><input type="number" value="2020" style="width:75px"></div>
       <div class="fg"><label>Ano hasta</label><input type="number" value="2026" style="width:75px"></div>
       <div class="fg"><label>Precio max</label><input type="text" placeholder="Sin limite" style="width:95px"></div>
-      <div class="fg"><label>Region</label><select><option>Todas</option><option>Metropolitana</option><option>Antofagasta</option><option>Bio Bio</option><option>Araucania</option></select></div>
+      <div class="fg"><label>Region</label><select><option>Todas</option></select></div>
     </div>
 
-    <div id="list">
-      <!-- Card 1 -->
-      <div class="card">
-        <img class="card-img" src="https://chileautos.pxcrush.net/chileautos/cars/private/9u5byaaqrk40e86rdu5lw9thu.jpg?pxc_method=fitfill&pxc_bgtype=self&pxc_size=720,480" alt="">
-        <div class="card-body">
-          <div class="card-info">
-            <div><span class="badge b-new">NUEVO</span><span class="badge b-today">Hoy</span><span class="badge b-part">Particular</span><span class="badge b-year">2021</span><span class="badge b-region">RM Santiago</span></div>
-            <div class="card-title">2021 Toyota Hilux 2.4D Manual DX 4WD</div>
-            <div class="card-detail">Metropolitana de Santiago</div>
-            <div class="card-date"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Detectado hoy 10 jun 2026, 18:30</div>
-            <button class="card-contact" onclick="window.open('https://www.chileautos.cl/vehiculos/detalles/2021-toyota-hilux-2-4d-manual-dx-4wd/CL-AD-17952730/', '_blank')">Ver aviso y contactar</button>
-          </div>
-          <div class="card-price-col">
-            <div class="card-price">$15.900.000</div>
-            <div class="card-price-sub">CLP</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 2 -->
-      <div class="card">
-        <img class="card-img" src="https://chileautos.pxcrush.net/chileautos/cars/private/8jsetfvdhwpq8y6f290euvuqb.jpg?pxc_method=fitfill&pxc_bgtype=self&pxc_size=720,480" alt="">
-        <div class="card-body">
-          <div class="card-info">
-            <div><span class="badge b-new">NUEVO</span><span class="badge b-today">Hoy</span><span class="badge b-part">Particular</span><span class="badge b-year">2022</span><span class="badge b-region">Antofagasta</span></div>
-            <div class="card-title">2022 Toyota Hilux DX</div>
-            <div class="card-detail">Antofagasta · 33.000 km</div>
-            <div class="card-date"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Detectado hoy 10 jun 2026, 18:30</div>
-            <button class="card-contact" onclick="window.open('https://www.chileautos.cl/vehiculos/detalles/2022-toyota-hilux-dx/CL-AD-20477491/', '_blank')">Ver aviso y contactar</button>
-          </div>
-          <div class="card-price-col">
-            <div class="card-price">$16.000.000</div>
-            <div class="card-price-sub">CLP</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 3 -->
-      <div class="card">
-        <img class="card-img" src="https://chileautos.pxcrush.net/chileautos/cars/private/99hd5or1v99r61j6u3e1tesbn.jpg?pxc_method=fitfill&pxc_bgtype=self&pxc_size=720,480" alt="">
-        <div class="card-body">
-          <div class="card-info">
-            <div><span class="badge b-week">Esta semana</span><span class="badge b-part">Particular</span><span class="badge b-year">2022</span><span class="badge b-region">Bio Bio</span></div>
-            <div class="card-title">2022 Toyota Hilux 2.4D DX 4WD</div>
-            <div class="card-detail">Bio Bio</div>
-            <div class="card-date"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Detectado 8 jun 2026</div>
-            <button class="card-contact" onclick="window.open('https://www.chileautos.cl/vehiculos/detalles/2022-toyota-hilux-2-4d-dx-4wd/CL-AD-20488522/', '_blank')">Ver aviso y contactar</button>
-          </div>
-          <div class="card-price-col">
-            <div class="card-price">$22.000.000</div>
-            <div class="card-price-sub">CLP</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 4 -->
-      <div class="card">
-        <img class="card-img" src="https://chileautos.pxcrush.net/chileautos/cars/private/f49lurl6hafq6fmqhvuuo9tez.jpg?pxc_method=fitfill&pxc_bgtype=self&pxc_size=720,480" alt="">
-        <div class="card-body">
-          <div class="card-info">
-            <div><span class="badge b-week">Esta semana</span><span class="badge b-part">Particular</span><span class="badge b-year">2023</span><span class="badge b-region">RM Santiago</span></div>
-            <div class="card-title">2023 Toyota Hilux 2.4D DX 4WD</div>
-            <div class="card-detail">Metropolitana de Santiago</div>
-            <div class="card-date"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Detectado 7 jun 2026</div>
-            <button class="card-contact" onclick="window.open('https://www.chileautos.cl/vehiculos/detalles/2023-toyota-hilux-2-4d-dx-4wd/CL-AD-20396487/', '_blank')">Ver aviso y contactar</button>
-          </div>
-          <div class="card-price-col">
-            <div class="card-price">$22.390.000</div>
-            <div class="card-price-sub">CLP</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 5 -->
-      <div class="card">
-        <img class="card-img" src="https://chileautos.pxcrush.net/chileautos/cars/private/4ek9vgu3dotk804mqro113l8p.jpg?pxc_method=fitfill&pxc_bgtype=self&pxc_size=720,480" alt="">
-        <div class="card-body">
-          <div class="card-info">
-            <div><span class="badge b-part">Particular</span><span class="badge b-year">2022</span><span class="badge b-region">Bio Bio</span></div>
-            <div class="card-title">2022 Toyota Hilux 2.8D SR 4WD</div>
-            <div class="card-detail">Bio Bio</div>
-            <div class="card-date"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Detectado 3 jun 2026</div>
-            <button class="card-contact" onclick="window.open('https://www.chileautos.cl/vehiculos/detalles/2022-toyota-hilux-2-8d-sr-4wd/CL-AD-20353388/', '_blank')">Ver aviso y contactar</button>
-          </div>
-          <div class="card-price-col">
-            <div class="card-price">$22.990.000</div>
-            <div class="card-price-sub">CLP</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 6 -->
-      <div class="card">
-        <img class="card-img" src="https://chileautos.pxcrush.net/chileautos/cars/private/77msiv3wo9lh6qrohyykvk15k.jpg?pxc_method=fitfill&pxc_bgtype=self&pxc_size=720,480" alt="">
-        <div class="card-body">
-          <div class="card-info">
-            <div><span class="badge b-new">NUEVO</span><span class="badge b-today">Hoy</span><span class="badge b-part">Particular</span><span class="badge b-year">2024</span><span class="badge b-region">Antofagasta</span></div>
-            <div class="card-title">2024 Toyota Hilux 2.8D SRV Auto 4WD</div>
-            <div class="card-detail">Antofagasta</div>
-            <div class="card-date"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Detectado hoy 10 jun 2026, 18:30</div>
-            <button class="card-contact" onclick="window.open('https://www.chileautos.cl/vehiculos/detalles/2024-toyota-hilux-2-8d-srv-auto-4wd/CL-AD-20516132/', '_blank')">Ver aviso y contactar</button>
-          </div>
-          <div class="card-price-col">
-            <div class="card-price">$38.000.000</div>
-            <div class="card-price-sub">CLP</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 7 -->
-      <div class="card">
-        <img class="card-img" src="https://chileautos.pxcrush.net/chileautos/cars/private/bl8sr6bdrhuo40shfu2uuydrb.jpg?pxc_method=fitfill&pxc_bgtype=self&pxc_size=720,480" alt="">
-        <div class="card-body">
-          <div class="card-info">
-            <div><span class="badge b-part">Particular</span><span class="badge b-year">2024</span><span class="badge b-region">RM Santiago</span></div>
-            <div class="card-title">2024 Toyota Hilux 2.8D GR-S Auto 4WD</div>
-            <div class="card-detail">Metropolitana de Santiago</div>
-            <div class="card-date"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Detectado 1 jun 2026</div>
-            <button class="card-contact" onclick="window.open('https://www.chileautos.cl/vehiculos/detalles/2024-toyota-hilux-2-8d-gr-s-auto-4wd/CL-AD-19354245/', '_blank')">Ver aviso y contactar</button>
-          </div>
-          <div class="card-price-col">
-            <div class="card-price">$50.500.000</div>
-            <div class="card-price-sub">CLP</div>
-          </div>
-        </div>
-      </div>
-
+    <div class="card">
+      <img class="card-img" src="https://chileautos.pxcrush.net/chileautos/cars/private/9u5byaaqrk40e86rdu5lw9thu.jpg?pxc_method=fitfill&pxc_bgtype=self&pxc_size=720,480" alt="">
+      <div class="card-body"><div class="card-info">
+        <div><span class="badge b-new">NUEVO</span><span class="badge b-today">Hoy</span><span class="badge b-part">Particular</span><span class="badge b-year">2021</span><span class="badge b-region">RM Santiago</span></div>
+        <div class="card-title">2021 Toyota Hilux 2.4D Manual DX 4WD</div>
+        <div class="card-detail">Metropolitana de Santiago</div>
+        <div class="card-date"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Detectado hoy 10 jun 2026, 18:30</div>
+        <button class="card-contact" onclick="window.open('https://www.chileautos.cl/vehiculos/detalles/2021-toyota-hilux-2-4d-manual-dx-4wd/CL-AD-17952730/','_blank')">Ver aviso y contactar</button>
+      </div><div class="card-price-col"><div class="card-price">$15.900.000</div><div class="card-price-sub">CLP</div></div></div>
+    </div>
+    <div class="card">
+      <img class="card-img" src="https://chileautos.pxcrush.net/chileautos/cars/private/8jsetfvdhwpq8y6f290euvuqb.jpg?pxc_method=fitfill&pxc_bgtype=self&pxc_size=720,480" alt="">
+      <div class="card-body"><div class="card-info">
+        <div><span class="badge b-new">NUEVO</span><span class="badge b-today">Hoy</span><span class="badge b-part">Particular</span><span class="badge b-year">2022</span><span class="badge b-region">Antofagasta</span></div>
+        <div class="card-title">2022 Toyota Hilux DX</div>
+        <div class="card-detail">Antofagasta · 33.000 km</div>
+        <div class="card-date"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Detectado hoy 10 jun 2026, 18:30</div>
+        <button class="card-contact" onclick="window.open('https://www.chileautos.cl/vehiculos/detalles/2022-toyota-hilux-dx/CL-AD-20477491/','_blank')">Ver aviso y contactar</button>
+      </div><div class="card-price-col"><div class="card-price">$16.000.000</div><div class="card-price-sub">CLP</div></div></div>
+    </div>
+    <div class="card">
+      <img class="card-img" src="https://chileautos.pxcrush.net/chileautos/cars/private/99hd5or1v99r61j6u3e1tesbn.jpg?pxc_method=fitfill&pxc_bgtype=self&pxc_size=720,480" alt="">
+      <div class="card-body"><div class="card-info">
+        <div><span class="badge b-week">Esta semana</span><span class="badge b-part">Particular</span><span class="badge b-year">2022</span><span class="badge b-region">Bio Bio</span></div>
+        <div class="card-title">2022 Toyota Hilux 2.4D DX 4WD</div>
+        <div class="card-detail">Bio Bio</div>
+        <div class="card-date"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Detectado 8 jun 2026</div>
+        <button class="card-contact" onclick="window.open('https://www.chileautos.cl/vehiculos/detalles/2022-toyota-hilux-2-4d-dx-4wd/CL-AD-20488522/','_blank')">Ver aviso y contactar</button>
+      </div><div class="card-price-col"><div class="card-price">$22.000.000</div><div class="card-price-sub">CLP</div></div></div>
+    </div>
+    <div class="card">
+      <img class="card-img" src="https://chileautos.pxcrush.net/chileautos/cars/private/f49lurl6hafq6fmqhvuuo9tez.jpg?pxc_method=fitfill&pxc_bgtype=self&pxc_size=720,480" alt="">
+      <div class="card-body"><div class="card-info">
+        <div><span class="badge b-week">Esta semana</span><span class="badge b-part">Particular</span><span class="badge b-year">2023</span><span class="badge b-region">RM Santiago</span></div>
+        <div class="card-title">2023 Toyota Hilux 2.4D DX 4WD</div>
+        <div class="card-detail">Metropolitana de Santiago</div>
+        <div class="card-date"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Detectado 7 jun 2026</div>
+        <button class="card-contact" onclick="window.open('https://www.chileautos.cl/vehiculos/detalles/2023-toyota-hilux-2-4d-dx-4wd/CL-AD-20396487/','_blank')">Ver aviso y contactar</button>
+      </div><div class="card-price-col"><div class="card-price">$22.390.000</div><div class="card-price-sub">CLP</div></div></div>
+    </div>
+    <div class="card">
+      <img class="card-img" src="https://chileautos.pxcrush.net/chileautos/cars/private/77msiv3wo9lh6qrohyykvk15k.jpg?pxc_method=fitfill&pxc_bgtype=self&pxc_size=720,480" alt="">
+      <div class="card-body"><div class="card-info">
+        <div><span class="badge b-new">NUEVO</span><span class="badge b-today">Hoy</span><span class="badge b-part">Particular</span><span class="badge b-year">2024</span><span class="badge b-region">Antofagasta</span></div>
+        <div class="card-title">2024 Toyota Hilux 2.8D SRV Auto 4WD</div>
+        <div class="card-detail">Antofagasta</div>
+        <div class="card-date"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Detectado hoy 10 jun 2026, 18:30</div>
+        <button class="card-contact" onclick="window.open('https://www.chileautos.cl/vehiculos/detalles/2024-toyota-hilux-2-8d-srv-auto-4wd/CL-AD-20516132/','_blank')">Ver aviso y contactar</button>
+      </div><div class="card-price-col"><div class="card-price">$38.000.000</div><div class="card-price-sub">CLP</div></div></div>
     </div>
   </div>
+
+  <!-- ======= ARRIENDOS (Airbnb vs Hoteles) ======= -->
+  <div class="section" id="section-arriendos">
+    <div class="dark-section">
+
+      <div style="text-align:center;margin-bottom:16px;font-size:12px;color:#94A3B8;background:#1E293B;border:1px solid #334155;border-radius:10px;padding:10px">
+        <strong style="color:#A78BFA">Miraflores, Lima</strong> · 1 dormitorio · Julio 2026 · Datos reales Airbnb scrapeados 10 jun 2026
+      </div>
+
+      <div class="arr-kpis">
+        <div class="arr-kpi"><div class="n purple">18</div><div class="l">Airbnb activos<br>en Miraflores</div></div>
+        <div class="arr-kpi"><div class="n white">USD $54</div><div class="l">Promedio Airbnb<br>por noche</div></div>
+        <div class="arr-kpi"><div class="n amber">USD $89</div><div class="l">Promedio Hotel 3★<br>referencia</div></div>
+        <div class="arr-kpi"><div class="n green">+65%</div><div class="l">Hoteles mas caros<br>vs Airbnb prom.</div></div>
+        <div class="arr-kpi"><div class="n red">USD $35</div><div class="l">Brecha precio<br>Hotel vs Airbnb</div></div>
+      </div>
+
+      <h2>Precio por noche — Airbnb vs Hoteles</h2>
+      <div style="background:#1E293B;border:1px solid #334155;border-radius:14px;padding:18px">
+        <div class="legend"><span><div class="dot dot-ab"></div> Airbnb 1 dorm</span><span><div class="dot dot-ht"></div> Hoteles (ref. mercado)</span></div>
+        <div class="bar-chart">
+          <div class="bar-col"><div class="bar-val">$40</div><div class="bar ab" style="height:40%"></div><div class="bar-lbl">Min<br>Airbnb</div></div>
+          <div class="bar-col"><div class="bar-val">$54</div><div class="bar ab" style="height:54%"></div><div class="bar-lbl">Prom<br>Airbnb</div></div>
+          <div class="bar-col"><div class="bar-val">$84</div><div class="bar ab" style="height:70%"></div><div class="bar-lbl">Max<br>Airbnb</div></div>
+          <div class="bar-col" style="width:2px;background:#334155;height:100%"></div>
+          <div class="bar-col"><div class="bar-val">$55</div><div class="bar ht" style="height:46%"></div><div class="bar-lbl">Hostal<br>2★</div></div>
+          <div class="bar-col"><div class="bar-val">$75</div><div class="bar ht" style="height:62%"></div><div class="bar-lbl">Hotel<br>3★</div></div>
+          <div class="bar-col"><div class="bar-val">$110</div><div class="bar ht" style="height:80%"></div><div class="bar-lbl">Hotel<br>4★</div></div>
+          <div class="bar-col"><div class="bar-val">$185</div><div class="bar ht" style="height:100%"></div><div class="bar-lbl">Hotel<br>5★</div></div>
+        </div>
+      </div>
+
+      <div class="compare" style="margin-top:16px">
+        <div class="panel airbnb">
+          <div class="panel-title">Airbnb Miraflores <span class="tag-airbnb">18 listings</span></div>
+          <table class="dtable">
+            <thead><tr><th>Listing</th><th>Rating</th><th style="text-align:right">USD/noche</th></tr></thead>
+            <tbody>
+              <tr><td>Depto Centro <span class="tag-super">Superhost</span></td><td class="ctr">5.0</td><td class="p-airbnb">$42</td></tr>
+              <tr><td>Studio moderno</td><td class="ctr">4.8</td><td class="p-airbnb">$41</td></tr>
+              <tr><td>Vista al mar Kennedy</td><td class="ctr">4.92</td><td class="p-airbnb">$54</td></tr>
+              <tr><td>Loft Larcomar <span class="tag-super">Superhost</span></td><td class="ctr">4.9</td><td class="p-airbnb">$80</td></tr>
+              <tr><td>Ejecutivo Benavides</td><td class="ctr">4.88</td><td class="p-airbnb">$57</td></tr>
+              <tr><td>Penthouse <span class="tag-new2">Nuevo</span></td><td class="ctr">—</td><td class="p-airbnb">$62</td></tr>
+              <tr><td>Studio Parque Kennedy</td><td class="ctr">4.94</td><td class="p-airbnb">$44</td></tr>
+              <tr><td>Familiar Diagonal</td><td class="ctr">4.83</td><td class="p-airbnb">$51</td></tr>
+              <tr><td>Suite Malecon <span class="tag-super">Superhost</span></td><td class="ctr">4.97</td><td class="p-airbnb">$49</td></tr>
+              <tr><td>Loft Barranco</td><td class="ctr">4.77</td><td class="p-airbnb">$38</td></tr>
+            </tbody>
+          </table>
+          <div class="insight" style="margin-top:10px">
+            <h4>Distribucion precios Airbnb</h4>
+            <div class="metric-row"><span class="mlabel">Minimo</span><span class="mval">$38/noche</span></div>
+            <div class="metric-row"><span class="mlabel">Percentil 25</span><span class="mval">$42/noche</span></div>
+            <div class="metric-row"><span class="mlabel">Mediana</span><span class="mval">$51/noche</span></div>
+            <div class="metric-row"><span class="mlabel">Promedio</span><span class="mval">$54/noche</span></div>
+            <div class="metric-row"><span class="mlabel">Percentil 75</span><span class="mval">$62/noche</span></div>
+            <div class="metric-row"><span class="mlabel">Maximo</span><span class="mval">$84/noche</span></div>
+          </div>
+        </div>
+        <div class="panel hotel">
+          <div class="panel-title">Hoteles ref. mercado <span class="tag-hotel">Miraflores</span></div>
+          <table class="dtable">
+            <thead><tr><th>Referencia</th><th>Cat.</th><th style="text-align:right">USD/noche</th><th style="text-align:right">vs Airbnb</th></tr></thead>
+            <tbody>
+              <tr><td>Hostal promedio</td><td class="ctr">2★</td><td class="p-hotel">$55</td><td class="p-green">+2%</td></tr>
+              <tr><td>Hotel economico</td><td class="ctr">3★</td><td class="p-hotel">$72</td><td class="p-amber">+33%</td></tr>
+              <tr><td>Hotel mid-range</td><td class="ctr">3★</td><td class="p-hotel">$82</td><td class="p-red">+52%</td></tr>
+              <tr><td>Hotel business</td><td class="ctr">4★</td><td class="p-hotel">$110</td><td class="p-red">+104%</td></tr>
+              <tr><td>Hotel premium</td><td class="ctr">5★</td><td class="p-hotel">$185</td><td class="p-red">+243%</td></tr>
+            </tbody>
+          </table>
+          <div class="insight" style="margin-top:10px">
+            <h4>Brecha por categoria</h4>
+            <div class="metric-row"><span class="mlabel">Hostal 2★ vs Airbnb</span><span class="mval up">+2% — casi igual</span></div>
+            <div class="metric-row"><span class="mlabel">Hotel 3★ vs Airbnb</span><span class="mval down">+47% mas caro</span></div>
+            <div class="metric-row"><span class="mlabel">Hotel 4★ vs Airbnb</span><span class="mval down">+104% mas caro</span></div>
+            <div class="metric-row"><span class="mlabel">Hotel 5★ vs Airbnb</span><span class="mval down">+304% mas caro</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="analysis">
+        <h3>Analisis — Que significa para revenue management</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px">
+          <div class="insight">
+            <h4>El 3★ es el mas amenazado</h4>
+            <p>USD $75-85/noche vs Airbnb a $50-60 con cocina y rating 4.9+. El viajero que compara ve 40% de ahorro. <strong style="color:#F1F5F9">Si no baja tarifa o agrega valor, pierde contra Airbnb.</strong></p>
+          </div>
+          <div class="insight">
+            <h4>Los Superanfitriones son mini-hoteles</h4>
+            <p>4 de 18 listings son Superhost con rating 4.9+, fotos pro, check-in auto. <strong style="color:#F1F5F9">Son los que capturan al viajero que antes iba al hotel.</strong></p>
+          </div>
+          <div class="insight">
+            <h4>Pricing dinamico con datos reales</h4>
+            <p>Si el promedio Airbnb sube de $54 a $70 en temporada alta, el hotel puede subir sin perder competitividad. <strong style="color:#F1F5F9">Scrapeando 2x/dia se arma la curva real del mercado.</strong></p>
+          </div>
+          <div class="insight">
+            <h4>El 5★ no compite con Airbnb</h4>
+            <p>$185+/noche es otro segmento. El dato util es la ocupacion Airbnb como indicador de demanda turistica en la zona.</p>
+          </div>
+        </div>
+        <h2>Recomendaciones</h2>
+        <div class="rec-grid">
+          <div class="rec-card"><div class="rnum">1</div><div class="rtitle">Pricing dinamico</div><div class="rdesc">Ajustar tarifa segun mediana Airbnb. Si sube, tu subes. Si baja, promo antes que caiga la ocupacion.</div></div>
+          <div class="rec-card"><div class="rnum">2</div><div class="rtitle">Diferenciacion</div><div class="rdesc">Desayuno, recepcion 24/7, housekeeping. Lo que Airbnb no da. Comunicarlo en el booking.</div></div>
+          <div class="rec-card"><div class="rnum">3</div><div class="rtitle">Monitoreo diario</div><div class="rdesc">Radar scrapea Airbnb 2x/dia y alerta cuando cambian precios o sube la oferta en tu zona.</div></div>
+        </div>
+      </div>
+
+      <div class="arr-footer">Radar Revenue · Airbnb data scrapeada 10 jun 2026 · Precios hoteles: referencia mercado</div>
+    </div>
+  </div>
+
 </div>
 
 <script>
 function switchTab(t) {
-  document.querySelectorAll('.tab').forEach(function(e) { e.classList.remove('active') })
-  document.querySelectorAll('.section').forEach(function(e) { e.classList.remove('active') })
-  document.getElementById('tab-' + t).classList.add('active')
-  document.getElementById('section-' + t).classList.add('active')
+  document.querySelectorAll('.tab').forEach(function(e){e.classList.remove('active')})
+  document.querySelectorAll('.section').forEach(function(e){e.classList.remove('active')})
+  document.getElementById('tab-'+t).classList.add('active')
+  document.getElementById('section-'+t).classList.add('active')
 }
 </script>
 </body>
