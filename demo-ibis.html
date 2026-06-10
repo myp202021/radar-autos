@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radar Revenue — Airbnb Intelligence · Ibis Hotels Demo</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',system-ui,sans-serif;background:#F3F4F6;color:#1F2937;min-height:100vh}
+.nav{background:linear-gradient(135deg,#1E40AF,#3B82F6);padding:14px 24px;display:flex;justify-content:space-between;align-items:center}
+.nav .logo{font-size:20px;font-weight:800;color:#fff}
+.nav .logo span{opacity:.7;font-weight:400;font-size:13px;margin-left:8px}
+.nav .tag{font-size:11px;color:rgba(255,255,255,.7);background:rgba(255,255,255,.15);padding:4px 12px;border-radius:8px}
+.container{max-width:1200px;margin:0 auto;padding:20px 16px}
+.tabs{display:flex;gap:4px;background:#E5E7EB;padding:4px;border-radius:12px;margin-bottom:18px}
+.tab{flex:1;text-align:center;padding:10px;border-radius:10px;font-size:13px;font-weight:600;color:#6B7280;cursor:pointer;border:none;background:none;transition:all .2s}
+.tab.active{background:linear-gradient(135deg,#1E40AF,#3B82F6);color:#fff;box-shadow:0 2px 8px rgba(30,64,175,.3)}
+.tab .cnt{display:inline-block;background:rgba(255,255,255,.25);padding:1px 7px;border-radius:10px;font-size:11px;margin-left:5px}
+.section{display:none}.section.active{display:block}
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:16px}
+.kpi{background:#fff;border:1px solid #E5E7EB;border-radius:12px;padding:12px;text-align:center}
+.kpi .n{font-size:22px;font-weight:800;letter-spacing:-1px}
+.kpi .n.blue{color:#1E40AF}.kpi .n.green{color:#059669}.kpi .n.red{color:#DC2626}.kpi .n.amber{color:#D97706}.kpi .n.teal{color:#0D9488}
+.kpi .l{font-size:10px;color:#9CA3AF;margin-top:2px;line-height:1.3}
+.info-bar{background:#EFF6FF;border:1px solid #BFDBFE;border-radius:10px;padding:12px 16px;margin-bottom:14px;font-size:12px;color:#1E40AF;display:flex;align-items:center;gap:8px}
+.info-bar strong{color:#1E3A8A}
+.card{background:#fff;border:1px solid #E5E7EB;border-radius:12px;margin-bottom:8px;transition:all .15s}
+.card:hover{border-color:#3B82F6;box-shadow:0 4px 16px rgba(59,130,246,.08)}
+.card-body{padding:12px 16px;display:flex;justify-content:space-between;align-items:center}
+.card-info{flex:1}
+.card-price-col{text-align:right;flex-shrink:0;margin-left:16px}
+.card-title{font-size:14px;font-weight:700;color:#1F2937;margin:4px 0 3px}
+.card-detail{font-size:11px;color:#6B7280;margin:2px 0}
+.card-price{font-size:20px;font-weight:800}
+.card-price-sub{font-size:10px;color:#9CA3AF;margin-top:1px}
+.badge{display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:5px;margin-right:3px}
+.b-under{background:#D1FAE5;color:#065F46}.b-over{background:#FEF2F2;color:#991B1B}.b-avg{background:#DBEAFE;color:#1E40AF;border:1px solid #93C5FD}
+.b-sh{background:#D1FAE5;color:#065F46}.b-fav{background:#EDE9FE;color:#6D28D9}.b-new{background:#DC2626;color:#fff}.b-disc{background:#FEF3C7;color:#92400E}
+.b-rat{background:#F3F4F6;color:#4B5563}.b-zone{background:#F3F4F6;color:#6B7280}
+.panel{background:#fff;border:1px solid #E5E7EB;border-radius:12px;padding:16px;margin-bottom:12px}
+.panel h4{font-size:13px;font-weight:700;color:#1F2937;margin-bottom:8px}
+.row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #F3F4F6;font-size:11px;color:#6B7280}
+.row:last-child{border:none}
+.row .val{font-weight:700;color:#1F2937}
+.row .val.green{color:#059669}.row .val.red{color:#DC2626}.row .val.amber{color:#D97706}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.hist{display:flex;gap:4px;align-items:end;height:80px;margin:8px 0}
+.hist-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px}
+.hist-bar{width:100%;border-radius:3px 3px 0 0}
+.hist-val{font-size:9px;font-weight:700;color:#1F2937}
+.hist-lbl{font-size:8px;color:#9CA3AF;text-align:center}
+.footer{text-align:center;padding:16px;font-size:10px;color:#9CA3AF;border-top:1px solid #E5E7EB;margin-top:20px}
+.highlight-box{background:linear-gradient(135deg,#EFF6FF,#DBEAFE);border:1px solid #93C5FD;border-radius:12px;padding:16px;margin-bottom:12px}
+.highlight-box h4{color:#1E40AF;font-size:13px;font-weight:700;margin-bottom:6px}
+.highlight-box p{font-size:11px;color:#1E3A8A;line-height:1.6}
+.warn-box{background:#FEF3C7;border:1px solid #FDE68A;border-radius:12px;padding:16px;margin-bottom:12px}
+.warn-box h4{color:#92400E;font-size:13px;font-weight:700;margin-bottom:6px}
+.warn-box p{font-size:11px;color:#78350F;line-height:1.6}
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <div class="logo">Radar Revenue <span>Airbnb Intelligence para Hoteles</span></div>
+  <div class="tag">Demo Ibis Hotels · Junio 2026</div>
+</div>
+
+<div class="container">
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('miraflores')" id="tab-miraflores">Miraflores, Lima <span class="cnt">18</span></button>
+    <button class="tab" onclick="switchTab('palermo')" id="tab-palermo">Palermo, Buenos Aires <span class="cnt">18</span></button>
+    <button class="tab" onclick="switchTab('comparativo')" id="tab-comparativo">Comparativo</button>
+  </div>
+
+  <!-- ======= MIRAFLORES ======= -->
+  <div class="section active" id="section-miraflores">
+    <div class="info-bar"><strong>Miraflores, Lima · Peru</strong> · 1 dormitorio · Depto completo · Jul 15-19, 2026 · 18 listings Airbnb reales scrapeados hoy</div>
+
+    <div class="kpis">
+      <div class="kpi"><div class="n blue">18</div><div class="l">Listings activos</div></div>
+      <div class="kpi"><div class="n teal">$24</div><div class="l">Promedio USD/noche</div></div>
+      <div class="kpi"><div class="n green">$16</div><div class="l">Minimo USD/noche</div></div>
+      <div class="kpi"><div class="n red">$35</div><div class="l">Maximo USD/noche</div></div>
+      <div class="kpi"><div class="n amber">4.90</div><div class="l">Rating promedio</div></div>
+      <div class="kpi"><div class="n blue">56%</div><div class="l">Con descuento activo</div></div>
+    </div>
+
+    <div class="grid-2">
+      <div class="panel">
+        <h4>Distribucion de precios (USD/noche)</h4>
+        <div class="hist">
+          <div class="hist-col"><div class="hist-val">5</div><div class="hist-bar" style="height:62%;background:#059669"></div><div class="hist-lbl">$15-20</div></div>
+          <div class="hist-col"><div class="hist-val">6</div><div class="hist-bar" style="height:75%;background:#0D9488"></div><div class="hist-lbl">$20-25</div></div>
+          <div class="hist-col"><div class="hist-val">4</div><div class="hist-bar" style="height:50%;background:#D97706"></div><div class="hist-lbl">$25-30</div></div>
+          <div class="hist-col"><div class="hist-val">2</div><div class="hist-bar" style="height:25%;background:#DC2626"></div><div class="hist-lbl">$30-35</div></div>
+          <div class="hist-col"><div class="hist-val">1</div><div class="hist-bar" style="height:12%;background:#DC2626"></div><div class="hist-lbl">$35+</div></div>
+        </div>
+        <div style="font-size:10px;color:#9CA3AF;display:flex;gap:12px;justify-content:center;margin-top:6px">
+          <span>P25: <strong style="color:#1F2937">$19</strong></span>
+          <span>Mediana: <strong style="color:#1F2937">$23</strong></span>
+          <span>P75: <strong style="color:#1F2937">$27</strong></span>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>Ibis Miraflores vs mercado Airbnb</h4>
+        <div class="row"><span>Tarifa Ibis ref. (hab. standard)</span><span class="val">~$45 USD/noche</span></div>
+        <div class="row"><span>Promedio Airbnb zona</span><span class="val green">$24 USD/noche</span></div>
+        <div class="row"><span>Brecha Ibis vs Airbnb</span><span class="val red">+88% mas caro</span></div>
+        <div class="row"><span>Airbnb mas caro de la zona</span><span class="val">$35/noche (aun 22% bajo Ibis)</span></div>
+        <div class="row"><span>Listings con descuento</span><span class="val amber">56% — sobreoferta julio</span></div>
+        <div class="row"><span>Listings nuevos (sin reviews)</span><span class="val">1 — oferta creciendo</span></div>
+      </div>
+    </div>
+
+    <div style="font-size:13px;font-weight:700;margin:14px 0 8px">Listings Airbnb — de menor a mayor precio</div>
+
+    <div class="card"><div class="card-body"><div class="card-info">
+      <div><span class="badge b-under">Bajo promedio</span><span class="badge b-disc">-Descuento</span><span class="badge b-rat">4.96 ★ (26)</span><span class="badge b-zone">Barranco</span></div>
+      <div class="card-title">Apartamento en Barranco</div>
+      <div class="card-detail">26 resenas · Limite Miraflores · Depto completo</div>
+    </div><div class="card-price-col"><div class="card-price" style="color:#059669">$16</div><div class="card-price-sub">USD/noche · -33% vs prom</div></div></div></div>
+
+    <div class="card"><div class="card-body"><div class="card-info">
+      <div><span class="badge b-under">Bajo promedio</span><span class="badge b-rat">4.79 ★ (34)</span><span class="badge b-zone">Lima Centro</span></div>
+      <div class="card-title">Condo en Lima</div>
+      <div class="card-detail">34 resenas · Departamento completo</div>
+    </div><div class="card-price-col"><div class="card-price" style="color:#059669">$19</div><div class="card-price-sub">USD/noche · -21% vs prom</div></div></div></div>
+
+    <div class="card"><div class="card-body"><div class="card-info">
+      <div><span class="badge b-under">Bajo promedio</span><span class="badge b-disc">-Descuento</span><span class="badge b-rat">4.69 ★ (118)</span><span class="badge b-zone">Lima</span></div>
+      <div class="card-title">Apartamento en Lima</div>
+      <div class="card-detail">118 resenas · Mas resenado de la zona · Precio con descuento</div>
+    </div><div class="card-price-col"><div class="card-price" style="color:#059669">$20</div><div class="card-price-sub">USD/noche · -17% vs prom</div></div></div></div>
+
+    <div class="card" style="border-color:#3B82F6;border-width:2px"><div class="card-body"><div class="card-info">
+      <div><span class="badge b-avg">Promedio zona</span><span class="badge b-disc">-25% desc</span><span class="badge b-rat">4.92 ★ (61)</span><span class="badge b-zone">Miraflores</span></div>
+      <div class="card-title">Apartamento en Miraflores — Vista al mar</div>
+      <div class="card-detail">61 resenas · Descuento 25% activo · Favorito huespedes</div>
+    </div><div class="card-price-col"><div class="card-price" style="color:#1E40AF">$25</div><div class="card-price-sub">USD/noche · precio promedio</div></div></div></div>
+
+    <div class="card"><div class="card-body"><div class="card-info">
+      <div><span class="badge b-over">Sobre promedio</span><span class="badge b-new">NUEVO</span><span class="badge b-sh">Superhost</span><span class="badge b-zone">Miraflores</span></div>
+      <div class="card-title">Apartamento nuevo — sin reviews</div>
+      <div class="card-detail">0 resenas · Listing nuevo · Superanfitrion en otra propiedad</div>
+    </div><div class="card-price-col"><div class="card-price" style="color:#DC2626">$28</div><div class="card-price-sub">USD/noche · +17% vs prom</div></div></div></div>
+
+    <div class="card"><div class="card-body"><div class="card-info">
+      <div><span class="badge b-over">Sobre promedio</span><span class="badge b-rat">4.98 ★ (56)</span><span class="badge b-disc">-Descuento</span><span class="badge b-zone">Miraflores</span></div>
+      <div class="card-title">Apartamento premium Miraflores</div>
+      <div class="card-detail">56 resenas · Rating casi perfecto · Con descuento aun asi caro</div>
+    </div><div class="card-price-col"><div class="card-price" style="color:#DC2626">$33</div><div class="card-price-sub">USD/noche · +38% vs prom</div></div></div></div>
+
+    <div class="card"><div class="card-body"><div class="card-info">
+      <div><span class="badge b-over">Maximo zona</span><span class="badge b-rat">5.0 ★ (14)</span><span class="badge b-zone">Miraflores</span></div>
+      <div class="card-title">Condo premium — el mas caro de la zona</div>
+      <div class="card-detail">14 resenas · Rating perfecto · Sin descuento</div>
+    </div><div class="card-price-col"><div class="card-price" style="color:#DC2626">$35</div><div class="card-price-sub">USD/noche · +46% vs prom</div></div></div></div>
+
+    <!-- Analisis profundo -->
+    <div style="font-size:13px;font-weight:700;margin:18px 0 10px">Analisis de revenue para Ibis Miraflores</div>
+
+    <div class="highlight-box">
+      <h4>El Airbnb mas caro de Miraflores ($35) sigue siendo 22% mas barato que Ibis ($45)</h4>
+      <p>Esto significa que <strong>ningun Airbnb en la zona compite por precio directo con Ibis</strong>. El viajero que elige Airbnb lo hace por espacio y cocina, no porque sea mas barato que Ibis. La oportunidad para Ibis: comunicar que por $10 mas que un Airbnb promedio, el huesped tiene desayuno, recepcion 24/7, housekeeping diario y ubicacion garantizada.</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="warn-box">
+        <h4>56% de listings con descuento = sobreoferta en julio</h4>
+        <p>Mas de la mitad de los Airbnb estan bajando precio. Es invierno en Lima y la demanda cae. <strong>Oportunidad para Ibis: promo agresiva julio-agosto captura al viajero que ve descuentos en Airbnb y compara.</strong> Un "desayuno gratis + late checkout" puede cerrar la brecha de percepcion.</p>
+      </div>
+      <div class="panel">
+        <h4>Perfil del competidor Airbnb</h4>
+        <div class="row"><span>Rating promedio</span><span class="val">4.90 / 5.0</span></div>
+        <div class="row"><span>Superhosts</span><span class="val">2 de 18 (11%)</span></div>
+        <div class="row"><span>Listing mas resenado</span><span class="val">118 resenas</span></div>
+        <div class="row"><span>Listings nuevos</span><span class="val">1 (crecimiento oferta)</span></div>
+        <div class="row"><span>Ubicacion dominante</span><span class="val">Miraflores centro + Barranco</span></div>
+      </div>
+    </div>
+
+    <div class="grid-3">
+      <div class="panel">
+        <h4>Si la tarifa Ibis es $45</h4>
+        <div class="row"><span>vs Airbnb minimo ($16)</span><span class="val red">+181%</span></div>
+        <div class="row"><span>vs Airbnb promedio ($24)</span><span class="val red">+88%</span></div>
+        <div class="row"><span>vs Airbnb mediana ($23)</span><span class="val red">+96%</span></div>
+        <div class="row"><span>vs Airbnb maximo ($35)</span><span class="val amber">+29%</span></div>
+      </div>
+      <div class="panel">
+        <h4>Precio sugerido por escenario</h4>
+        <div class="row"><span>Temporada baja (jul-ago)</span><span class="val green">$38-42</span></div>
+        <div class="row"><span>Temporada media (sep-nov)</span><span class="val">$45-50</span></div>
+        <div class="row"><span>Temporada alta (dic-mar)</span><span class="val amber">$55-65</span></div>
+        <div class="row"><span>Fiestas/eventos</span><span class="val red">$70+</span></div>
+      </div>
+      <div class="panel">
+        <h4>Ventajas Ibis vs Airbnb</h4>
+        <div class="row"><span>Desayuno incluido</span><span class="val green">Airbnb no tiene</span></div>
+        <div class="row"><span>Recepcion 24/7</span><span class="val green">Check-in flexible</span></div>
+        <div class="row"><span>Housekeeping diario</span><span class="val green">Airbnb no tiene</span></div>
+        <div class="row"><span>Marca/confianza</span><span class="val green">Ibis = estandar global</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======= PALERMO ======= -->
+  <div class="section" id="section-palermo">
+    <div class="info-bar"><strong>Palermo, Buenos Aires · Argentina</strong> · 1 dormitorio · Depto completo · Jul 15-19, 2026 · 18 listings Airbnb reales scrapeados hoy</div>
+
+    <div class="kpis">
+      <div class="kpi"><div class="n blue">18</div><div class="l">Listings activos</div></div>
+      <div class="kpi"><div class="n teal">$27</div><div class="l">Promedio USD/noche</div></div>
+      <div class="kpi"><div class="n green">$21</div><div class="l">Minimo USD/noche</div></div>
+      <div class="kpi"><div class="n red">$39</div><div class="l">Maximo USD/noche</div></div>
+      <div class="kpi"><div class="n amber">4.93</div><div class="l">Rating promedio</div></div>
+      <div class="kpi"><div class="n blue">28%</div><div class="l">Con descuento activo</div></div>
+    </div>
+
+    <div class="grid-2">
+      <div class="panel">
+        <h4>Distribucion de precios (USD/noche)</h4>
+        <div class="hist">
+          <div class="hist-col"><div class="hist-val">3</div><div class="hist-bar" style="height:37%;background:#059669"></div><div class="hist-lbl">$20-24</div></div>
+          <div class="hist-col"><div class="hist-val">10</div><div class="hist-bar" style="height:100%;background:#0D9488"></div><div class="hist-lbl">$25-29</div></div>
+          <div class="hist-col"><div class="hist-val">3</div><div class="hist-bar" style="height:37%;background:#D97706"></div><div class="hist-lbl">$30-34</div></div>
+          <div class="hist-col"><div class="hist-val">2</div><div class="hist-bar" style="height:25%;background:#DC2626"></div><div class="hist-lbl">$35+</div></div>
+        </div>
+        <div style="font-size:10px;color:#9CA3AF;display:flex;gap:12px;justify-content:center;margin-top:6px">
+          <span>P25: <strong style="color:#1F2937">$24</strong></span>
+          <span>Mediana: <strong style="color:#1F2937">$27</strong></span>
+          <span>P75: <strong style="color:#1F2937">$28</strong></span>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>Ibis Palermo vs mercado Airbnb</h4>
+        <div class="row"><span>Tarifa Ibis ref. (hab. standard)</span><span class="val">~$40 USD/noche</span></div>
+        <div class="row"><span>Promedio Airbnb zona</span><span class="val green">$27 USD/noche</span></div>
+        <div class="row"><span>Brecha Ibis vs Airbnb</span><span class="val red">+48% mas caro</span></div>
+        <div class="row"><span>Airbnb mas caro de la zona</span><span class="val">$39/noche (casi igual a Ibis)</span></div>
+        <div class="row"><span>Listings con descuento</span><span class="val">28% — mercado estable</span></div>
+        <div class="row"><span>Listings nuevos (sin reviews)</span><span class="val">1 — oferta estable</span></div>
+      </div>
+    </div>
+
+    <div style="font-size:13px;font-weight:700;margin:14px 0 8px">Listings Airbnb — de menor a mayor precio</div>
+
+    <div class="card"><div class="card-body"><div class="card-info">
+      <div><span class="badge b-under">Bajo promedio</span><span class="badge b-rat">4.87 ★ (181)</span><span class="badge b-zone">Buenos Aires</span></div>
+      <div class="card-title">Apartamento en Buenos Aires</div>
+      <div class="card-detail">181 resenas · Muy resenado · Depto completo</div>
+    </div><div class="card-price-col"><div class="card-price" style="color:#059669">$21</div><div class="card-price-sub">USD/noche · -22% vs prom</div></div></div></div>
+
+    <div class="card"><div class="card-body"><div class="card-info">
+      <div><span class="badge b-under">Bajo promedio</span><span class="badge b-disc">-Descuento</span><span class="badge b-rat">5.0 ★ (3)</span><span class="badge b-zone">Buenos Aires</span></div>
+      <div class="card-title">Apartamento nuevo en Buenos Aires</div>
+      <div class="card-detail">3 resenas · Rating perfecto · Precio con descuento</div>
+    </div><div class="card-price-col"><div class="card-price" style="color:#059669">$22</div><div class="card-price-sub">USD/noche · -19% vs prom</div></div></div></div>
+
+    <div class="card"><div class="card-body"><div class="card-info">
+      <div><span class="badge b-under">Bajo promedio</span><span class="badge b-rat">4.89 ★ (311)</span><span class="badge b-fav">Mas resenado</span><span class="badge b-zone">Palermo</span></div>
+      <div class="card-title">Apartamento en Palermo</div>
+      <div class="card-detail">311 resenas — el mas resenado de toda la zona</div>
+    </div><div class="card-price-col"><div class="card-price" style="color:#059669">$22</div><div class="card-price-sub">USD/noche · -19% vs prom</div></div></div></div>
+
+    <div class="card" style="border-color:#3B82F6;border-width:2px"><div class="card-body"><div class="card-info">
+      <div><span class="badge b-avg">Promedio zona</span><span class="badge b-rat">4.88 ★ (49)</span><span class="badge b-zone">Buenos Aires</span></div>
+      <div class="card-title">Apartamento en Buenos Aires</div>
+      <div class="card-detail">49 resenas · Precio representativo del mercado</div>
+    </div><div class="card-price-col"><div class="card-price" style="color:#1E40AF">$27</div><div class="card-price-sub">USD/noche · precio promedio</div></div></div></div>
+
+    <div class="card"><div class="card-body"><div class="card-info">
+      <div><span class="badge b-over">Sobre promedio</span><span class="badge b-disc">-Descuento</span><span class="badge b-rat">5.0 ★ (17)</span><span class="badge b-zone">Buenos Aires</span></div>
+      <div class="card-title">Apartamento premium Buenos Aires</div>
+      <div class="card-detail">17 resenas · Rating perfecto · Aun con descuento esta caro</div>
+    </div><div class="card-price-col"><div class="card-price" style="color:#DC2626">$37</div><div class="card-price-sub">USD/noche · +37% vs prom</div></div></div></div>
+
+    <div class="card"><div class="card-body"><div class="card-info">
+      <div><span class="badge b-over">Maximo zona</span><span class="badge b-disc">-Descuento</span><span class="badge b-rat">4.96 ★ (358)</span><span class="badge b-fav">Top reviews</span><span class="badge b-zone">Palermo</span></div>
+      <div class="card-title">Apartamento en Palermo — el mas caro y resenado</div>
+      <div class="card-detail">358 resenas · El listing mas exitoso de Palermo · Con descuento</div>
+    </div><div class="card-price-col"><div class="card-price" style="color:#DC2626">$39</div><div class="card-price-sub">USD/noche · +44% vs prom</div></div></div></div>
+
+    <!-- Analisis Palermo -->
+    <div style="font-size:13px;font-weight:700;margin:18px 0 10px">Analisis de revenue para Ibis Palermo</div>
+
+    <div class="highlight-box">
+      <h4>En Palermo el Airbnb mas caro ($39) esta a solo $1 del Ibis ($40) — aqui si compiten directo</h4>
+      <p>A diferencia de Miraflores, en Palermo <strong>el segmento alto de Airbnb ($35-39) ya toca la tarifa de Ibis</strong>. El viajero que paga $39 por un Airbnb premium con 358 resenas podria elegir Ibis por $40 si la propuesta de valor es clara. Riesgo: si Ibis sube a $45+, pierde contra estos listings premium.</p>
+    </div>
+
+    <div class="warn-box">
+      <h4>Palermo concentra el 56% de los listings entre $25-29 — mercado muy competitivo</h4>
+      <p>10 de 18 listings estan en ese rango. Es un precio piso muy consolidado. <strong>Ibis no puede competir en ese rango, pero puede capturar al viajero que quiere pagar un poco mas por certeza:</strong> marca conocida, cancelacion flexible, ubicacion verificada.</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="panel">
+        <h4>Si la tarifa Ibis es $40</h4>
+        <div class="row"><span>vs Airbnb minimo ($21)</span><span class="val red">+90%</span></div>
+        <div class="row"><span>vs Airbnb promedio ($27)</span><span class="val red">+48%</span></div>
+        <div class="row"><span>vs Airbnb mediana ($27)</span><span class="val red">+48%</span></div>
+        <div class="row"><span>vs Airbnb maximo ($39)</span><span class="val green">+3%</span></div>
+      </div>
+      <div class="panel">
+        <h4>Precio sugerido por escenario</h4>
+        <div class="row"><span>Temporada baja (jul-ago)</span><span class="val green">$35-38</span></div>
+        <div class="row"><span>Temporada media (sep-nov)</span><span class="val">$40-45</span></div>
+        <div class="row"><span>Temporada alta (dic-mar)</span><span class="val amber">$50-60</span></div>
+        <div class="row"><span>Eventos (Lollapalooza, etc.)</span><span class="val red">$65+</span></div>
+      </div>
+      <div class="panel">
+        <h4>Senal del mercado</h4>
+        <div class="row"><span>Descuentos activos</span><span class="val">28% (menor que Lima)</span></div>
+        <div class="row"><span>Listing nuevo</span><span class="val">1 — mercado estable</span></div>
+        <div class="row"><span>Reviews promedio</span><span class="val">100+ por listing</span></div>
+        <div class="row"><span>Madurez mercado</span><span class="val amber">Alta — dificil entrar</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======= COMPARATIVO ======= -->
+  <div class="section" id="section-comparativo">
+    <div class="info-bar"><strong>Comparativo Miraflores vs Palermo</strong> · Mismas fechas, mismo tipo (1 dorm, depto completo) · Data real Airbnb</div>
+
+    <div class="kpis" style="grid-template-columns:repeat(4,1fr)">
+      <div class="kpi"><div class="n teal">$24</div><div class="l">Promedio Miraflores<br>USD/noche</div></div>
+      <div class="kpi"><div class="n blue">$27</div><div class="l">Promedio Palermo<br>USD/noche</div></div>
+      <div class="kpi"><div class="n amber">+13%</div><div class="l">Palermo mas caro<br>que Miraflores</div></div>
+      <div class="kpi"><div class="n red">$3</div><div class="l">Diferencia absoluta<br>USD/noche</div></div>
+    </div>
+
+    <div class="grid-2">
+      <div class="panel">
+        <h4>Metricas lado a lado</h4>
+        <div style="display:grid;grid-template-columns:40% 30% 30%;font-size:11px;gap:0">
+          <div style="padding:6px;font-weight:700;border-bottom:2px solid #E5E7EB">Metrica</div>
+          <div style="padding:6px;font-weight:700;border-bottom:2px solid #E5E7EB;text-align:center;color:#DC2626">Miraflores</div>
+          <div style="padding:6px;font-weight:700;border-bottom:2px solid #E5E7EB;text-align:center;color:#1E40AF">Palermo</div>
+          <div style="padding:5px;border-bottom:1px solid #F3F4F6">Listings activos</div><div style="padding:5px;border-bottom:1px solid #F3F4F6;text-align:center;font-weight:600">18</div><div style="padding:5px;border-bottom:1px solid #F3F4F6;text-align:center;font-weight:600">18</div>
+          <div style="padding:5px;border-bottom:1px solid #F3F4F6">Precio minimo</div><div style="padding:5px;border-bottom:1px solid #F3F4F6;text-align:center;font-weight:600;color:#059669">$16</div><div style="padding:5px;border-bottom:1px solid #F3F4F6;text-align:center;font-weight:600">$21</div>
+          <div style="padding:5px;border-bottom:1px solid #F3F4F6">Precio promedio</div><div style="padding:5px;border-bottom:1px solid #F3F4F6;text-align:center;font-weight:600;color:#059669">$24</div><div style="padding:5px;border-bottom:1px solid #F3F4F6;text-align:center;font-weight:600">$27</div>
+          <div style="padding:5px;border-bottom:1px solid #F3F4F6">Precio maximo</div><div style="padding:5px;border-bottom:1px solid #F3F4F6;text-align:center;font-weight:600">$35</div><div style="padding:5px;border-bottom:1px solid #F3F4F6;text-align:center;font-weight:600;color:#DC2626">$39</div>
+          <div style="padding:5px;border-bottom:1px solid #F3F4F6">Rating promedio</div><div style="padding:5px;border-bottom:1px solid #F3F4F6;text-align:center;font-weight:600">4.90</div><div style="padding:5px;border-bottom:1px solid #F3F4F6;text-align:center;font-weight:600;color:#059669">4.93</div>
+          <div style="padding:5px;border-bottom:1px solid #F3F4F6">Con descuento</div><div style="padding:5px;border-bottom:1px solid #F3F4F6;text-align:center;font-weight:600;color:#DC2626">56%</div><div style="padding:5px;border-bottom:1px solid #F3F4F6;text-align:center;font-weight:600">28%</div>
+          <div style="padding:5px;border-bottom:1px solid #F3F4F6">Tarifa Ibis ref.</div><div style="padding:5px;border-bottom:1px solid #F3F4F6;text-align:center;font-weight:600">~$45</div><div style="padding:5px;border-bottom:1px solid #F3F4F6;text-align:center;font-weight:600">~$40</div>
+          <div style="padding:5px">Brecha Ibis vs Airbnb</div><div style="padding:5px;text-align:center;font-weight:700;color:#DC2626">+88%</div><div style="padding:5px;text-align:center;font-weight:700;color:#D97706">+48%</div>
+        </div>
+      </div>
+      <div>
+        <div class="highlight-box">
+          <h4>Palermo es mercado mas maduro y competitivo</h4>
+          <p>Mas reviews por listing (promedio 100+ vs 50 en Miraflores), menos descuentos (28% vs 56%), precios mas consolidados en rango $25-29. <strong>Ibis Palermo tiene menos margen de maniobra que Ibis Miraflores.</strong></p>
+        </div>
+        <div class="warn-box">
+          <h4>Miraflores tiene mas espacio para Ibis</h4>
+          <p>La brecha es mayor (+88%) pero tambien hay mas sobreoferta Airbnb (56% con descuento). <strong>Ibis Miraflores puede bajar a $38-40 en julio y capturar al viajero que ve descuentos en Airbnb pero quiere certeza hotelera.</strong></p>
+        </div>
+        <div class="panel">
+          <h4>Recomendacion para ambas plazas</h4>
+          <div class="row"><span>Monitoreo</span><span class="val">Scraping Airbnb 2x/dia por zona</span></div>
+          <div class="row"><span>Alerta</span><span class="val">Cuando promedio Airbnb cambia +/-10%</span></div>
+          <div class="row"><span>Pricing julio</span><span class="val amber">Bajar 10-15% vs rack rate</span></div>
+          <div class="row"><span>Pricing verano</span><span class="val green">Subir 20-30% cuando Airbnb sube</span></div>
+          <div class="row"><span>Diferenciacion</span><span class="val">Desayuno + marca + cancelacion</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Radar Revenue · Datos reales Airbnb scrapeados 10 junio 2026 · Tarifas Ibis referenciales de mercado<br>
+    Demo para Javier — Ibis Hotels · Muller y Perez · contacto@mulleryperez.cl
+  </div>
+</div>
+
+<script>
+function switchTab(t) {
+  document.querySelectorAll('.tab').forEach(function(e){e.classList.remove('active')})
+  document.querySelectorAll('.section').forEach(function(e){e.classList.remove('active')})
+  document.getElementById('tab-'+t).classList.add('active')
+  document.getElementById('section-'+t).classList.add('active')
+}
+</script>
+</body>
+</html>
